@@ -92,7 +92,7 @@
     }
 
     function getHistory() {
-        var history = JSON.parse(localStorage.getItem("emoji")) || [];
+        var history = JSON.parse(localStorage.getItem("emoji")) || {};
         return history;
     }
 
