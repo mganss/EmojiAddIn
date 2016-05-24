@@ -1,0 +1,2 @@
+# EmojiAddIn
+Emoji for Outlook
