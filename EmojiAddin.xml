@@ -11,8 +11,8 @@
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Emojis" />
   <Description DefaultValue="Insert emojis into messages."/>
-  <IconUrl DefaultValue="https://mganss.github.io/EmojiAddIn/images/icon64.png" />
-  <HighResolutionIconUrl DefaultValue="https://mganss.github.io/EmojiAddIn/images/icon80.png" />
+  <IconUrl DefaultValue="https://mganss.github.io/EmojiAddIn/Images/icon64.png" />
+  <HighResolutionIconUrl DefaultValue="https://mganss.github.io/EmojiAddIn/Images/icon80.png" />
   <Hosts>
     <Host Name="Mailbox" />
   </Hosts>
@@ -74,9 +74,9 @@
     <Resources>
       <bt:Images>
         <!-- Blue icon -->
-        <bt:Image id="icon-16" DefaultValue="https://mganss.github.io/EmojiAddIn/images/icon16.png"/>
-        <bt:Image id="icon-32" DefaultValue="https://mganss.github.io/EmojiAddIn/images/icon32.png"/>
-        <bt:Image id="icon-80" DefaultValue="https://mganss.github.io/EmojiAddIn/images/icon80.png"/>
+        <bt:Image id="icon-16" DefaultValue="https://mganss.github.io/EmojiAddIn/Images/icon16.png"/>
+        <bt:Image id="icon-32" DefaultValue="https://mganss.github.io/EmojiAddIn/Images/icon32.png"/>
+        <bt:Image id="icon-80" DefaultValue="https://mganss.github.io/EmojiAddIn/Images/icon80.png"/>
       </bt:Images>
       <bt:Urls>
         <bt:Url id="composeTaskPaneUrl" DefaultValue="https://mganss.github.io/EmojiAddIn/AddInCompose/TaskPane/TaskPane.html"/>
