@@ -45,21 +45,27 @@ gulp.task('copyfiles', function () {
         .pipe(gulp.dest(copyOutputFolder));
 });
 
-gulp.task('watch', function () {
+function logEvent(event) {
+    console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
+}
+
+gulp.task('watch-sass', function () {
     return gulp
-        // Watch the input folder for change,
-        // and run `sass` task when something happens
         .watch(input, ['sass'])
-        // When there is a change,
-        // log a message in the console
-        .on('change', function (event) {
-            console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
-        });
+        .on('change', logEvent)
 });
+
+gulp.task('watch-copy', function () {
+    return gulp
+        .watch(copyInput, ['copyfiles'])
+        .on('change', logEvent);
+});
+
+gulp.task('watch', ['watch-sass', 'watch-copy']);
 
 gulp.task('default', ['sass', 'watch' /*, possible other tasks... */]);
 
-gulp.task('prod', ['sass'], function () {
+gulp.task('prod', ['sass', 'copy'], function () {
     return gulp
         .src(input)
         .pipe(sass({ outputStyle: 'compressed' }))
