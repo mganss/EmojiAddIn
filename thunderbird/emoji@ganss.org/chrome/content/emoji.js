@@ -34,7 +34,7 @@ $(function () {
                     + emoji + '" src="' + 'https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.0/assets/png/' + unicode + '.png">';
                 htmlEditor.insertHTML(html);
             } else {
-                var textEditor = editorElement.getEditor(editorElement.contentWindow);
+                var textEditor = editorElement.getEditor(editorElement.contentWindow).QueryInterface(Components.interfaces.nsIPlaintextEditor);
                 textEditor.insertText(emoji);
             }
         }
