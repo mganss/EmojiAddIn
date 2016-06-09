@@ -1,0 +1,17 @@
+#sidebar-box sidebarheader {
+  color: -moz-DialogText;
+  text-shadow: none;
+  background-color: -moz-Dialog;
+}
+
+#emoji-splitter {
+  -moz-appearance: none;
+  border-inline-start: 1px solid ThreeDShadow;
+  /* splitter grip area */
+  width: 5px;
+  /* make only the splitter border visible */
+  margin-inline-end: -5px;
+  /* because of the negative margin needed to make the splitter visible */
+  position: relative;
+  z-index: 10;
+}

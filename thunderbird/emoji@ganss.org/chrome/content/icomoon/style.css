@@ -1,0 +1,55 @@
+@font-face {
+    font-family: 'icomoon';
+    src: url('fonts/icomoon.woff?juk5ph') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-search:before {
+    content: "\e909";
+}
+.icon-cancel-circle:before {
+    content: "\e90a";
+}
+.icon-activity:before {
+    content: "\e900";
+}
+.icon-flags:before {
+    content: "\e901";
+}
+.icon-food:before {
+    content: "\e902";
+}
+.icon-nature:before {
+    content: "\e903";
+}
+.icon-objects:before {
+    content: "\e904";
+}
+.icon-people:before {
+    content: "\e905";
+}
+.icon-recent:before {
+    content: "\e906";
+}
+.icon-symbols:before {
+    content: "\e907";
+}
+.icon-travel:before {
+    content: "\e908";
+}
+

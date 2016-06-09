@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://emoji/skin/style.css" type="text/css"?>
+<?xml-stylesheet href="chrome://emoji-os/skin/emoji.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://emoji/locale/emoji.dtd" >
+<overlay id="emoji-overlay" 
+xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <broadcasterset id="composeBroadcasters">
+    <broadcaster id="viewEmoji" autoCheck="false" type="checkbox" oncommand="toggleEmoji();"/>
+  </broadcasterset>
+  <menupopup id="menu_View_Popup">
+    <menuitem id="menu_EmojiSidebar" insertafter="menu_AddressSidebar" label="&emojiSidebar.label;" accesskey="&emojiSidebar.accesskey;" observes="viewEmoji" />
+  </menupopup>
+  <toolbarpalette id="MsgComposeToolbarPalette">
+    <toolbarbutton class="toolbarbutton-1" insertafter="button-contacts"
+      id="button-emoji" label="&emojiButton.label;"
+      tooltiptext="&emojiButton.tooltip;"
+      observes="viewEmoji"/>
+  </toolbarpalette>
+  <hbox flex="1" id="composeContentBox">
+    <splitter id="emoji-splitter" />
+    <vbox id="emoji-box" persist="sidebarVisible width" hidden="true">
+      <sidebarheader id="emoji-header" align="center">
+        <label id="emoji-title" value="Emoji" />
+        <spacer flex="1"/>
+        <toolbarbutton class="ab-closebutton" oncommand="toggleEmoji();" />
+      </sidebarheader>
+      <browser id="emoji" flex="1" src="" disablehistory="true" tooltip="browserTooltip" />
+      <tooltip id="browserTooltip" onpopupshowing="return fillTooltip(this)" />
+    </vbox>
+  </hbox>
+  <script type="application/javascript" src="chrome://emoji/content/overlay.js"/>
+</overlay>

@@ -1,0 +1,9 @@
+#emoji {
+    min-width: 150px; 
+    width: 200px; 
+    max-width: 400px;
+}
+
+#button-emoji {
+    list-style-image: url("chrome://emoji/skin/icon.svg");
+}

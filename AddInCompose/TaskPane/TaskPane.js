@@ -1,23 +1,21 @@
-(function () {
+function Emoji(options) {
     "use strict";
 
+    var localStorage = options.localStorage;
     var emoji;
     var tone = localStorage.getItem("tone") || "tone-0";
     var tab = localStorage.getItem("tab") || "people";
     var categoryClasses = "people nature food activity travel objects symbols flags search";
 
     function initialize(reason) {
-        $(document).ready(function () {
-            setTone(tone);
-            attachEventHandlers();
-            loadEmoji(function () {
-                gotoTab(tab);
-            });
+        setTone(tone);
+        attachEventHandlers();
+        loadEmoji(function () {
+            gotoTab(tab);
         });
     }
 
-    // The Office initialize function must be run each time a new page is loaded
-    Office.initialize = initialize;
+    initialize();
 
     function gotoTab(tab) {
         if (tab === "history") $("#history").click();
@@ -44,7 +42,7 @@
             .OrderByDescending("$.Value")
             .Select(function (v) { return emojis.Single(function (e) { return e.Value.unicode === v.Key; }); })
             .ForEach(function (e) {
-                fragment.appendChild(createEmojiImage(e));
+                fragment.appendChild(options.createEmojiImage(e));
             });
         document.getElementById("history-gallery").appendChild(fragment);
         $("#galleries").removeClass().addClass("history");
@@ -52,12 +50,48 @@
         e.preventDefault();
     }
 
+    function convertUnicodeToString(unicode) {
+        var hi, lo;
+        if (unicode.indexOf("-") > -1) {
+            var parts = [];
+            var s = unicode.split('-');
+            for (var i = 0; i < s.length; i++) {
+                var part = parseInt(s[i], 16);
+                if (part >= 0x10000 && part <= 0x10FFFF) {
+                    hi = Math.floor((part - 0x10000) / 0x400) + 0xD800;
+                    lo = (part - 0x10000) % 0x400 + 0xDC00;
+                    part = String.fromCharCode(hi) + String.fromCharCode(lo);
+                }
+                else {
+                    part = String.fromCharCode(part);
+                }
+                parts.push(part);
+            }
+            return parts.join('');
+        }
+        else {
+            var u = parseInt(unicode, 16);
+            if (u >= 0x10000 && u <= 0x10FFFF) {
+                hi = Math.floor((u - 0x10000) / 0x400) + 0xD800;
+                lo = (u - 0x10000) % 0x400 + 0xDC00;
+                return String.fromCharCode(hi) + String.fromCharCode(lo);
+            }
+            else {
+                return String.fromCharCode(u);
+            }
+        }
+    }
+
     function handleEmojiClick(e) {
-        if (e.target.nodeName === 'SPAN') {
-            var unicode = e.target.id;
-            insertText(unicode);
+        var target = e.target.nodeName === "SPAN" ? e.target : (e.target.nodeName === "use" ? e.target.parentNode : null); 
+
+        if (target !== null) {
+            var unicode = target.id;
+            var emoji = convertUnicodeToString(unicode);
+            options.insertText(unicode, emoji);
             storeHistory(unicode);
         }
+
         e.preventDefault();
     }
 
@@ -67,7 +101,9 @@
         if (qs.Count() < 1) return;
 
         $("#emoji-gallery").removeClass(categoryClasses).addClass("search");
-        $("#emoji-gallery .emojione").removeClass("match");
+        $("#emoji-gallery .emojione").attr("class", function (i, c) {
+            return c.replace(" match", "");
+        });
         $.Enumerable.From(emoji)
             .Where(function (e) {
                 return qs.Any(function (q) {
@@ -77,7 +113,9 @@
                 });
             })
             .ForEach(function (e) {
-                $("#" + e.Value.unicode).addClass("match");
+                $("#" + e.Value.unicode).attr("class", function (i, c) {
+                    return c + " match";
+                });
             });
 
         $("#galleries").removeClass().addClass("emoji");
@@ -119,19 +157,6 @@
         e.preventDefault();
     }
 
-    function createEmojiImage(e) {
-        var val = e.Value;
-        var span = document.createElement("span");
-        var classes = ["emojione emojione-" + val.unicode, val.category];
-
-        span.title = val.name;
-        span.id = val.unicode;
-        if (typeof val.tone !== 'undefined') classes.push("tone-" + val.tone);
-        span.className = classes.join(" ");
-
-        return span;
-    }
-
     function processEmojiObject(e) {
         emoji = e;
         var fragment = document.createDocumentFragment();
@@ -146,72 +171,17 @@
                 return g;
             })
             .ForEach(function (e) {
-                fragment.appendChild(createEmojiImage(e));
+                fragment.appendChild(options.createEmojiImage(e));
             });
         document.getElementById("emoji-gallery").appendChild(fragment);
     }
 
     function loadEmoji(doneCallback) {
-        $.getJSON("emoji.json", processEmojiObject).done(doneCallback);
+        $.ajax({
+            dataType: "json",
+            url: "emoji.json",
+            mimeType: "application/json",
+            success: processEmojiObject
+        }).done(doneCallback);
     }
-
-    function convertUnicodeToString(unicode) {
-        var hi, lo;
-        if (unicode.indexOf("-") > -1) {
-            var parts = [];
-            var s = unicode.split('-');
-            for (var i = 0; i < s.length; i++) {
-                var part = parseInt(s[i], 16);
-                if (part >= 0x10000 && part <= 0x10FFFF) {
-                    hi = Math.floor((part - 0x10000) / 0x400) + 0xD800;
-                    lo = (part - 0x10000) % 0x400 + 0xDC00;
-                    part = String.fromCharCode(hi) + String.fromCharCode(lo);
-                }
-                else {
-                    part = String.fromCharCode(part);
-                }
-                parts.push(part);
-            }
-            return parts.join('');
-        }
-        else {
-            var u = parseInt(unicode, 16);
-            if (u >= 0x10000 && u <= 0x10FFFF) {
-                hi = Math.floor((u - 0x10000) / 0x400) + 0xD800;
-                lo = (u - 0x10000) % 0x400 + 0xDC00;
-                return String.fromCharCode(hi) + String.fromCharCode(lo);
-            }
-            else {
-                return String.fromCharCode(u);
-            }
-        }
-    }
-
-    function insertText(unicode) {
-        Office.context.mailbox.item.body.getTypeAsync(function (asyncResult) {
-            var emoji = convertUnicodeToString(unicode);
-            if (asyncResult.status === Office.AsyncResultStatus.Succeeded) {
-                var html = asyncResult.value === Office.MailboxEnums.BodyType.Html;
-                var textToInsert = html ?
-                    '<img width="20" height="20" align="middle" style="width: 3ex; height: 3ex; min-width: 20px; min-height: 20px; display: inline-block; margin: 0 .15em .2ex; line-height: normal; vertical-align: middle" class="emojione" alt="' + emoji + '" src="' + 'https://cdnjs.cloudflare.com/ajax/libs/emojione/2.1.4/assets/png/' + unicode + '.png">'
-                    : emoji;
-                Office.context.mailbox.item.body.setSelectedDataAsync(
-                  textToInsert,
-                  { coercionType: html ? Office.CoercionType.Html : Office.CoercionType.Text },
-                  function (asyncResult) {
-                      if (asyncResult.status !== Office.AsyncResultStatus.Succeeded) {
-                          Office.context.mailbox.item.notificationMessages.addAsync("insertTextError", {
-                              type: "errorMessage",
-                              message: "Failed to insert emoji \"" + emoji + "\": " + asyncResult.error.message
-                          });
-                      }
-                  });
-            } else {
-                Office.context.mailbox.item.notificationMessages.addAsync("insertTextError", {
-                    type: "errorMessage",
-                    message: "Failed to insert emoji \"" + emoji + "\": " + asyncResult.error.message
-                });
-            }
-        });
-    }
-})();
+};
