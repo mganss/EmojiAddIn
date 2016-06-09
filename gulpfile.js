@@ -76,6 +76,6 @@ gulp.task('prod', ['sass', 'copyfiles'], function () {
 
 gulp.task('dist', ['prod'], function () {
     return gulp.src('thunderbird/emoji@ganss.org/**/*')
-        .pipe(zip('emoji.zip'))
+        .pipe(zip('emoji.xpi'))
         .pipe(gulp.dest('.'));
 })
