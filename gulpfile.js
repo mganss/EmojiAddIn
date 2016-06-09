@@ -6,6 +6,7 @@ var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var autoprefixer = require('gulp-autoprefixer');
 var flatten = require('gulp-flatten');
+var zip = require('gulp-zip');
 
 gulp.task('serve-static', function () {
     gulp.src('.')
@@ -65,10 +66,16 @@ gulp.task('watch', ['watch-sass', 'watch-copy']);
 
 gulp.task('default', ['sass', 'watch' /*, possible other tasks... */]);
 
-gulp.task('prod', ['sass', 'copy'], function () {
+gulp.task('prod', ['sass', 'copyfiles'], function () {
     return gulp
         .src(input)
         .pipe(sass({ outputStyle: 'compressed' }))
         .pipe(autoprefixer())
         .pipe(gulp.dest(output));
 });
+
+gulp.task('dist', ['prod'], function () {
+    return gulp.src('thunderbird/emoji@ganss.org/**/*')
+        .pipe(zip('emoji.zip'))
+        .pipe(gulp.dest('.'));
+})
