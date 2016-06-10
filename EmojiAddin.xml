@@ -12,7 +12,8 @@
   <DisplayName DefaultValue="Emojis" />
   <Description DefaultValue="Insert emojis into messages."/>
   <IconUrl DefaultValue="https://mganss.github.io/EmojiAddIn/Images/icon64.png" />
-  <HighResolutionIconUrl DefaultValue="https://mganss.github.io/EmojiAddIn/Images/icon80.png" />
+  <HighResolutionIconUrl DefaultValue="https://mganss.github.io/EmojiAddIn/Images/icon128.png" />
+  <SupportUrl>https://github.com/mganss/EmojiAddIn/issues</SupportUrl>
   <Hosts>
     <Host Name="Mailbox" />
   </Hosts>
