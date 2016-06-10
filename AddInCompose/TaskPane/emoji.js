@@ -19,7 +19,7 @@ Office.initialize = function () {
                     if (asyncResult.status === Office.AsyncResultStatus.Succeeded) {
                         var html = asyncResult.value === Office.MailboxEnums.BodyType.Html;
                         var textToInsert = html ?
-                            '<img width="20" height="20" align="middle" style="width: 3ex; height: 3ex; min-width: 20px; min-height: 20px; display: inline-block; margin: 0 .15em .2ex; line-height: normal; vertical-align: middle" class="emojione" alt="' + emoji + '" src="' + 'https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.0/assets/png/' + unicode + '.png">'
+                            '<img width="20" height="20" align="middle" style="width: 3ex; height: 3ex; min-width: 20px; min-height: 20px; display: inline-block; margin: 0 .15em .2ex; line-height: normal; vertical-align: middle" class="emojione" alt="' + emoji + '" src="' + 'https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.1/assets/png/' + unicode + '.png">'
                             : emoji;
                         Office.context.mailbox.item.body.setSelectedDataAsync(
                             textToInsert,
