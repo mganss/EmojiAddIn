@@ -1,6 +1,6 @@
 # Emoji for Outlook and Thunderbird
 
-Adds an emoji task pane to Outlook (desktop and web) and Mozilla Thunderbird using the awesome [EmojiOne](https://emojione.com) emoji set. Features:
+Adds an emoji task pane to Outlook (desktop and web) and Mozilla Thunderbird using the awesome [EmojiOne](http://emojione.com) emoji set. Features:
 
 * History
 * Categories
