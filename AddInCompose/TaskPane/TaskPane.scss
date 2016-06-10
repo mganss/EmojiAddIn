@@ -6,6 +6,10 @@
 a {
     text-decoration: none;
     transition: all 200ms linear;
+
+    &:focus {
+        outline: none;
+    }
 }
 
 #tabs {
