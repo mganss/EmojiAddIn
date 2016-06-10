@@ -15,4 +15,5 @@ Adds an emoji task pane to Outlook (desktop and web) and Mozilla Thunderbird usi
 ![Office 365](Images/web.png "Office 365")
 
 ## Thunderbird
+[Detail page at Mozilla](https://addons.mozilla.org/de/thunderbird/addon/emojiaddin/)
 ![Thunderbird](Images/thunderbird.png "Thunderbird")
