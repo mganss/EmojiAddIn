@@ -13,7 +13,7 @@
   <Description DefaultValue="Insert emojis into messages."/>
   <IconUrl DefaultValue="https://mganss.github.io/EmojiAddIn/Images/icon64.png" />
   <HighResolutionIconUrl DefaultValue="https://mganss.github.io/EmojiAddIn/Images/icon128.png" />
-  <SupportUrl DefaultValue="https://mganss.github.io/support.html" />
+  <SupportUrl DefaultValue="https://mganss.github.io/EmojiAddIn/support.html" />
   <Hosts>
     <Host Name="Mailbox" />
   </Hosts>
