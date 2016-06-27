@@ -6,14 +6,14 @@
            xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0"
            xsi:type="MailApp">
   <Id>19d7837e-b9fc-4726-98ef-aaab8507fed1</Id>
-  <Version>1.0.0.2</Version>
-  <ProviderName>Michael Ganss</ProviderName>
+  <Version>1.0.0.3</Version>
+  <ProviderName>UpdateStar GmbH</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Emojis" />
   <Description DefaultValue="Insert emojis into messages."/>
   <IconUrl DefaultValue="https://mganss.github.io/EmojiAddIn/Images/icon64.png" />
   <HighResolutionIconUrl DefaultValue="https://mganss.github.io/EmojiAddIn/Images/icon128.png" />
-  <SupportUrl DefaultValue="https://github.com/mganss/EmojiAddIn/issues" />
+  <SupportUrl DefaultValue="https://mganss.github.io/support.html" />
   <Hosts>
     <Host Name="Mailbox" />
   </Hosts>
@@ -51,6 +51,30 @@
                 <Label resid="groupLabel" />
                 <!-- Task pane button -->
                 <Control xsi:type="Button" id="msgComposeOpenPaneButton">
+                  <Label resid="paneComposeButtonLabel" />
+                  <Supertip>
+                    <Title resid="paneComposeSuperTipTitle" />
+                    <Description resid="paneComposeSuperTipDescription" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="icon-16" />
+                    <bt:Image size="32" resid="icon-32" />
+                    <bt:Image size="80" resid="icon-80" />
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="composeTaskPaneUrl" />
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+          <!-- Appointment compose form -->
+          <ExtensionPoint xsi:type="AppointmentOrganizerCommandSurface">
+            <OfficeTab id="TabDefault">
+              <Group id="apptComposeDemoGroup">
+                <Label resid="groupLabel" />
+                <!-- Task pane button -->
+                <Control xsi:type="Button" id="apptComposeOpenPaneButton">
                   <Label resid="paneComposeButtonLabel" />
                   <Supertip>
                     <Title resid="paneComposeSuperTipTitle" />
