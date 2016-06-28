@@ -26,17 +26,21 @@ Office.initialize = function () {
                             { coercionType: html ? Office.CoercionType.Html : Office.CoercionType.Text },
                             function (asyncResult) {
                                 if (asyncResult.status !== Office.AsyncResultStatus.Succeeded) {
-                                    Office.context.mailbox.item.notificationMessages.addAsync("insertTextError", {
-                                        type: "errorMessage",
-                                        message: "Failed to insert emoji \"" + emoji + "\": " + asyncResult.error.message
-                                    });
+                                    if (typeof Office.context.mailbox.item.notificationMessages !== 'undefined') {
+                                        Office.context.mailbox.item.notificationMessages.addAsync("insertTextError", {
+                                            type: "errorMessage",
+                                            message: "Failed to insert emoji \"" + emoji + "\": " + asyncResult.error.message
+                                        });
+                                    }    
                                 }
                             });
                     } else {
-                        Office.context.mailbox.item.notificationMessages.addAsync("insertTextError", {
-                            type: "errorMessage",
-                            message: "Failed to insert emoji \"" + emoji + "\": " + asyncResult.error.message
-                        });
+                        if (typeof Office.context.mailbox.item.notificationMessages !== 'undefined') {
+                            Office.context.mailbox.item.notificationMessages.addAsync("insertTextError", {
+                                type: "errorMessage",
+                                message: "Failed to insert emoji \"" + emoji + "\": " + asyncResult.error.message
+                            });
+                        }    
                     }
                 });
             }
