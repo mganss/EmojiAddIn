@@ -40,7 +40,8 @@ function Emoji(options) {
         var fragment = document.createDocumentFragment();
         $.Enumerable.From(history)
             .OrderByDescending("$.Value")
-            .Select(function (v) { return emojis.Single(function (e) { return e.Value.unicode === v.Key; }); })
+            .Select(function (v) { return emojis.SingleOrDefault(null, function (e) { return e.Value.unicode === v.Key; }); })
+            .Where(function (v) { return v !== null; })
             .ForEach(function (e) {
                 fragment.appendChild(options.createEmojiImage(e));
             });
