@@ -168,9 +168,7 @@ function Emoji(options) {
             .SelectMany(function (g) {
                 if (g.Count() > 1) g.ForEach(function (e, i) {
                     var match = /_tone(\d):$/.exec(e.Value.shortname);
-                    if (match !== null) {
-                        e.Value.tone = match[1];
-                    }
+                    e.Value.tone = match !== null ? match[1] : "0";
                 });
                 return g;
             })
