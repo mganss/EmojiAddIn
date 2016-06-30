@@ -167,7 +167,8 @@ function Emoji(options) {
             .OrderBy(function (g) { return parseInt(g.First().Value.emoji_order); })
             .SelectMany(function (g) {
                 if (g.Count() > 1) g.ForEach(function (e, i) {
-                    e.Value.tone = i;
+                    var match = /_tone(\d):$/.exec(e.Value.shortname);
+                    e.Value.tone = match !== null ? match[1] : "0";
                 });
                 return g;
             })
