@@ -8,7 +8,7 @@ Office.initialize = function () {
                 var classes = ["emojione emojione-" + val.unicode, val.category];
 
                 span.title = val.name;
-                span.id = val.unicode;
+                span.setAttribute("data-unicode", val.unicode);
                 if (typeof val.tone !== 'undefined') classes.push("tone-" + val.tone);
                 span.className = classes.join(" ");
 
@@ -19,7 +19,7 @@ Office.initialize = function () {
                     if (asyncResult.status === Office.AsyncResultStatus.Succeeded) {
                         var html = asyncResult.value === Office.MailboxEnums.BodyType.Html;
                         var textToInsert = html ?
-                            '<img width="20" height="20" align="middle" style="width: 3ex; height: 3ex; min-width: 20px; min-height: 20px; display: inline-block; margin: 0 .15em .2ex; line-height: normal; vertical-align: middle" class="emojione" alt="' + emoji + '" src="' + 'https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.5/assets/png/' + unicode + '.png">'
+                            '<img width="20" height="20" align="middle" style="width: 3ex; height: 3ex; min-width: 20px; min-height: 20px; display: inline-block; margin: 0 .15em .2ex; line-height: normal; vertical-align: middle" class="emojione" alt="' + emoji + '" src="' + 'https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.6/assets/png/' + unicode + '.png">'
                             : emoji;
                         Office.context.mailbox.item.body.setSelectedDataAsync(
                             textToInsert,

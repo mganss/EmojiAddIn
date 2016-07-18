@@ -5,7 +5,7 @@ function Emoji(options) {
     var emoji;
     var tone = localStorage.getItem("tone") || "tone-0";
     var tab = localStorage.getItem("tab") || "people";
-    var categoryClasses = "people nature food activity travel objects symbols flags search";
+    var categoryClasses = "people nature food activity travel objects symbols flags search modifier regional";
 
     function initialize(reason) {
         setTone(tone);
@@ -87,7 +87,7 @@ function Emoji(options) {
         var target = e.target.nodeName === "SPAN" ? e.target : (e.target.nodeName === "use" ? e.target.parentNode : null); 
 
         if (target !== null) {
-            var unicode = target.id;
+            var unicode = $(target).data("unicode");
             var emoji = convertUnicodeToString(unicode);
             options.insertText(unicode, emoji);
             storeHistory(unicode);
@@ -114,7 +114,7 @@ function Emoji(options) {
                 });
             })
             .ForEach(function (e) {
-                $("#" + e.Value.unicode).attr("class", function (i, c) {
+                $("#emoji-gallery .emojione-" + e.Value.unicode).attr("class", function (i, c) {
                     return c + " match";
                 });
             });
@@ -162,7 +162,6 @@ function Emoji(options) {
         emoji = e;
         var fragment = document.createDocumentFragment();
         $.Enumerable.From(emoji)
-            .Where(function (e) { return e.Value.category !== "modifier"; })
             .GroupBy(function (e) { return e.Value.shortname.replace(/_tone\d/, ''); })
             .OrderBy(function (g) { return parseInt(g.First().Value.emoji_order); })
             .SelectMany(function (g) {
