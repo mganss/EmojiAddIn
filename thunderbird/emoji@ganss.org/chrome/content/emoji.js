@@ -14,7 +14,7 @@ $(function () {
             var classes = ["emojione emojione-" + val.unicode, val.category];
 
             svg.title = val.name;
-            svg.id = val.unicode;
+            svg.setAttribute("data-unicode", val.unicode);
 
             var use = document.createElementNS("http://www.w3.org/2000/svg", "use");
             use.setAttributeNS("http://www.w3.org/1999/xlink", "href", "emojione.sprites.svg#emoji-" + val.unicode);
@@ -31,7 +31,7 @@ $(function () {
             if (editorElement.editortype === "htmlmail") {
                 var htmlEditor = editorElement.getHTMLEditor(editorElement.contentWindow);
                 var html = '<img style="width: 3ex; height: 3ex; min-width: 20px; min-height: 20px; display: inline-block; margin: 0 .15em .2ex; line-height: normal; vertical-align: middle" class="emojione" alt="'
-                    + emoji + '" src="' + 'https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.5/assets/png/' + unicode + '.png">';
+                    + emoji + '" src="' + 'https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.6/assets/png/' + unicode + '.png">';
                 htmlEditor.insertHTML(html);
             } else {
                 var textEditor = editorElement.getEditor(editorElement.contentWindow).QueryInterface(Components.interfaces.nsIPlaintextEditor);

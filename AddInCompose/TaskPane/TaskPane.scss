@@ -132,7 +132,7 @@ footer {
         }
     }
 
-    $categories: people, nature, food, activity, travel, objects, symbols, flags;
+    $categories: people, nature, food, activity, travel, objects, symbols, flags, modifier, regional;
 
     @each $category in $categories {
         &.#{$category} {
