@@ -71,9 +71,12 @@ function fillTooltip(tooltip)
     return false;
 }
 
+Components.utils.import('resource://gre/modules/Services.jsm');
+var prefs = Services.prefs.getBranch("extensions.emoji.");
+
 window.addEventListener("load", function (e) {
     // add toolbar button
-    var installed = Application.prefs.getValue("extensions.emoji.installed", null);
+    var installed = prefs.prefHasUserValue("installed");
     if (!installed) {
         var navbar = document.getElementById("composeToolbar2");
         if (navbar.currentSet.indexOf("button-emoji") === -1) {
@@ -82,7 +85,7 @@ window.addEventListener("load", function (e) {
             navbar.setAttribute("currentset", newset);
             document.persist("composeToolbar2", "currentset");
         }
-        Application.prefs.setValue("extensions.emoji.installed", true);
+        prefs.setBoolPref("installed", true);
     }
 
     // show sidebar    

@@ -87,9 +87,9 @@ function Emoji(options) {
         var target = e.target.nodeName === "SPAN" ? e.target : (e.target.nodeName === "use" ? e.target.parentNode : null); 
 
         if (target !== null) {
-            var unicode = $(target).data("unicode");
+            var unicode = $(target).attr("data-unicode");
             var emoji = convertUnicodeToString(unicode);
-            options.insertText(unicode, emoji);
+            options.insertText(unicode, emoji, e.shiftKey);
             storeHistory(unicode);
         }
 

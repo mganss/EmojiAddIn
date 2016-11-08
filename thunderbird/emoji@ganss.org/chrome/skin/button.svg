@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="-1 -1 26 26"
+   height="24px"
+   width="24px"
+   id="svg3457"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="people2.svg">
+  <metadata
+     id="metadata3468">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="828"
+     inkscape:window-height="480"
+     id="namedview3466"
+     showgrid="false"
+     inkscape:zoom="9.8333333"
+     inkscape:cx="12"
+     inkscape:cy="12"
+     inkscape:window-x="1055"
+     inkscape:window-y="312"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg3457" />
+  <style>
+    .normal {
+      fill: #505050;
+      fill-opacity: 0.8;
+      stroke: #404040;
+    }
+    @media (-moz-windows-default-theme) and (-moz-os-version: windows-win8) {
+      .normal {
+        fill: #797c80;
+        fill-opacity: 1;
+        stroke: none;
+      }
+    }
+    @media (-moz-windows-default-theme) and (-moz-os-version: windows-win10) {
+      .normal {
+        fill: #4c4c4c;
+        fill-opacity: 1;
+        stroke: none;
+      }
+    }
+    @media (-moz-windows-default-theme) and (-moz-os-version: windows-vista),
+       (-moz-windows-default-theme) and (-moz-os-version: windows-win7) {
+      .normal {
+        fill: url(#win1);
+        fill-opacity: 1;
+        stroke: url(#win2);
+      }
+    }
+    @media (-moz-mac-lion-theme) {
+      .normal {
+        fill: url(#osx1);
+        fill-opacity: 1;
+        stroke: url(#osx2);
+      }
+    }
+    @media (-moz-mac-yosemite-theme) {
+      .normal {
+        fill: #4d4d4d;
+        fill-opacity: 1;
+        stroke: none;
+      }
+    }
+  </style>
+  <defs>
+    <linearGradient
+       id="win1"
+       x1="8"
+       y1="1"
+       x2="8"
+       y2="15"
+       gradientUnits="userSpaceOnUse">
+       <stop stop-color="#3f4f5a" offset="0"/>
+       <stop stop-color="#7e8c97" offset="1"/>
+    </linearGradient>
+    <linearGradient
+       id="win2"
+       x1="8"
+       y1="1"
+       x2="8"
+       y2="15"
+       gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0c1b25" offset="0"/>
+      <stop stop-color="#4f585f" stop-opacity="0.9" offset="1"/>
+    </linearGradient>
+    <linearGradient
+       id="osx1"
+       x1="8"
+       y1="1"
+       x2="8"
+       y2="15"
+       gradientUnits="userSpaceOnUse">
+       <stop stop-color="#4f4f4f" stop-opacity="0.76" offset="0"/>
+       <stop stop-color="#717171" stop-opacity="0.6" offset="1"/>
+    </linearGradient>
+    <linearGradient
+       id="osx2"
+       x1="8"
+       y1="1"
+       x2="8"
+       y2="15"
+       gradientUnits="userSpaceOnUse">
+      <stop stop-color="#252525" stop-opacity="0.88" offset="0"/>
+      <stop stop-color="#505050" stop-opacity="0.68" offset="1"/>
+    </linearGradient>
+  </defs>
+    <g
+     id="g7222">
+    <path class="normal"
+       d="M 12 2 A 10 10 0 0 0 2 12 A 10 10 0 0 0 12 22 A 10 10 0 0 0 22 12 A 10 10 0 0 0 12 2 z M 8 7 C 9.105 7 10 7.895 10 9 C 10 10.105 9.105 11 8 11 C 6.895 11 6 10.105 6 9 C 6 7.895 6.895 7 8 7 z M 16 7 C 17.105 7 18 7.895 18 9 C 18 10.105 17.105 11 16 11 C 14.895 11 14 10.105 14 9 C 14 7.895 14.895 7 16 7 z M 6 13 L 18 13 C 18 16.314 15.314 19 12 19 C 8.686 19 6 16.314 6 13 z M 8.5351562 15 C 9.2271563 16.195 10.405812 17 11.882812 17 C 13.361812 17 14.539422 16.195 15.232422 15 L 15 15 L 8.5351562 15 z "
+       id="circle3461" />
+  </g>
+</svg>
