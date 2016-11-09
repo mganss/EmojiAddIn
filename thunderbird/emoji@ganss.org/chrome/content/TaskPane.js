@@ -84,10 +84,10 @@ function Emoji(options) {
     }
 
     function handleEmojiClick(e) {
-        var target = e.target.nodeName === "SPAN" ? e.target : (e.target.nodeName === "use" ? e.target.parentNode : null); 
+        var target = $(e.target).closest("[data-unicode]");
 
-        if (target !== null) {
-            var unicode = $(target).attr("data-unicode");
+        if (target.length > 0) {
+            var unicode = target.attr("data-unicode");
             var emoji = convertUnicodeToString(unicode);
             options.insertText(unicode, emoji, e.shiftKey);
             storeHistory(unicode);
