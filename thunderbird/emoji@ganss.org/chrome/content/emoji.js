@@ -11,30 +11,27 @@ $(function () {
                 prefs.setCharPref(name, value);
             }
         },
-        createEmojiImage: function(e) {
+        createEmojiImage: function (e) {
             var val = e.Value;
-            var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-            var classes = ["emojione emojione-" + val.unicode, val.category];
+            var unicode = e.Key;
+            var span = document.createElement("span");
+            var sheet = typeof val.tone !== 'undefined' ? "diversity" : val.category;
+            var classes = ["emojione", "emojione-32-" + sheet, "_" + unicode, val.category];
 
-            svg.title = val.name;
-            svg.setAttribute("data-unicode", val.unicode);
-
-            var use = document.createElementNS("http://www.w3.org/2000/svg", "use");
-            use.setAttributeNS("http://www.w3.org/1999/xlink", "href", "emojione.sprites.svg#emoji-" + val.unicode);
-            use.setAttribute("title", val.name);
-            svg.appendChild(use);
-            
+            span.id = unicode;                
+            span.title = val.name;
+            span.setAttribute("data-unicode", unicode);
             if (typeof val.tone !== 'undefined') classes.push("tone-" + val.tone);
-            svg.setAttribute("class", classes.join(" "));
+            span.className = classes.join(" ");
 
-            return svg;
+            return span;
         },
         insertText: function(unicode, emoji, forceText) {
             var editorElement = window.parent.document.getElementById("content-frame");
             if (editorElement.editortype === "htmlmail") {
                 var htmlEditor = editorElement.getHTMLEditor(editorElement.contentWindow);
                 var html = forceText ? emoji : ('<img style="width: 3ex; height: 3ex; min-width: 20px; min-height: 20px; display: inline-block; margin: 0 .15em .2ex; line-height: normal; vertical-align: middle" class="emojione" alt="'
-                    + emoji + '" src="' + 'https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.6/assets/png/' + unicode + '.png">');
+                    + emoji + '" src="' + 'https://cdn.jsdelivr.net/emojione/assets/3.0/png/64/' + unicode + '.png">');
                 htmlEditor.insertHTML(html);
             } else {
                 var textEditor = editorElement.getEditor(editorElement.contentWindow).QueryInterface(Components.interfaces.nsIPlaintextEditor);

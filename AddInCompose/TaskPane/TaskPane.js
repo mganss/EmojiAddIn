@@ -40,7 +40,7 @@ function Emoji(options) {
         var fragment = document.createDocumentFragment();
         $.Enumerable.From(history)
             .OrderByDescending("$.Value")
-            .Select(function (v) { return emojis.SingleOrDefault(null, function (e) { return e.Value.unicode === v.Key; }); })
+            .Select(function (v) { return emojis.SingleOrDefault(null, function (e) { return e.Key === v.Key; }); })
             .Where(function (v) { return v !== null; })
             .ForEach(function (e) {
                 fragment.appendChild(options.createEmojiImage(e));
@@ -102,9 +102,7 @@ function Emoji(options) {
         if (qs.Count() < 1) return;
 
         $("#emoji-gallery").removeClass(categoryClasses).addClass("search");
-        $("#emoji-gallery .emojione").attr("class", function (i, c) {
-            return c.replace(" match", "");
-        });
+        $("#emoji-gallery .emojione").removeClass("match");
         $.Enumerable.From(emoji)
             .Where(function (e) {
                 return qs.Any(function (q) {
@@ -114,9 +112,7 @@ function Emoji(options) {
                 });
             })
             .ForEach(function (e) {
-                $("#emoji-gallery .emojione-" + e.Value.unicode).attr("class", function (i, c) {
-                    return c + " match";
-                });
+                $(document.getElementById(e.Key)).addClass("match");
             });
 
         $("#galleries").removeClass().addClass("emoji");
@@ -163,7 +159,7 @@ function Emoji(options) {
         var fragment = document.createDocumentFragment();
         $.Enumerable.From(emoji)
             .GroupBy(function (e) { return e.Value.shortname.replace(/_tone\d/, ''); })
-            .OrderBy(function (g) { return parseInt(g.First().Value.emoji_order); })
+            .OrderBy(function (g) { return g.First().Value.order; })
             .SelectMany(function (g) {
                 if (g.Count() > 1) g.ForEach(function (e, i) {
                     var match = /_tone(\d):$/.exec(e.Value.shortname);
@@ -185,4 +181,4 @@ function Emoji(options) {
             success: processEmojiObject
         }).done(doneCallback);
     }
-};
+}

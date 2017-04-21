@@ -92,15 +92,15 @@ footer {
 }
 
 .emojione {
-    width: 64px;
-    height: 64px;
-    margin: -16px;
+    width: 32px;
+    height: 32px;
+    margin: 0;
     transition: all 100ms ease;
     cursor: pointer;
-    transform: scale(0.375);
+    transform: scale(0.75);
 
     &:hover {
-        transform: scale(0.45);
+        transform: scale(0.9);
     }
 
     &:active {
