@@ -9,7 +9,7 @@ Office.initialize = function () {
                 var sheet = typeof val.tone !== 'undefined' ? "diversity" : val.category;
                 var classes = ["emojione", "emojione-32-" + sheet, "_" + unicode, val.category];
 
-                span.id = unicode;                
+                span.id = unicode;
                 span.title = val.name;
                 span.setAttribute("data-unicode", unicode);
                 if (typeof val.tone !== 'undefined') classes.push("tone-" + val.tone);
@@ -34,7 +34,7 @@ Office.initialize = function () {
                                             type: "errorMessage",
                                             message: "Failed to insert emoji \"" + emoji + "\": " + asyncResult.error.message
                                         });
-                                    }    
+                                    }
                                 }
                             });
                     } else {
@@ -43,12 +43,12 @@ Office.initialize = function () {
                                 type: "errorMessage",
                                 message: "Failed to insert emoji \"" + emoji + "\": " + asyncResult.error.message
                             });
-                        }    
+                        }
                     }
                 });
             }
         };
 
         Emoji(options);
-    })
-}
+    });
+};

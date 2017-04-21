@@ -18,7 +18,7 @@ $(function () {
             var sheet = typeof val.tone !== 'undefined' ? "diversity" : val.category;
             var classes = ["emojione", "emojione-32-" + sheet, "_" + unicode, val.category];
 
-            span.id = unicode;                
+            span.id = unicode;
             span.title = val.name;
             span.setAttribute("data-unicode", unicode);
             if (typeof val.tone !== 'undefined') classes.push("tone-" + val.tone);
@@ -26,7 +26,7 @@ $(function () {
 
             return span;
         },
-        insertText: function(unicode, emoji, forceText) {
+        insertText: function (unicode, emoji, forceText) {
             var editorElement = window.parent.document.getElementById("content-frame");
             if (editorElement.editortype === "htmlmail") {
                 var htmlEditor = editorElement.getHTMLEditor(editorElement.contentWindow);
@@ -48,5 +48,4 @@ $(function () {
         messenger.launchExternalURL("http://emojione.com/");
         e.preventDefault();
     });
-})
-
+});

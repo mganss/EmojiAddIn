@@ -53,7 +53,7 @@ function logEvent(event) {
 gulp.task('watch-sass', function () {
     return gulp
         .watch(input, ['sass'])
-        .on('change', logEvent)
+        .on('change', logEvent);
 });
 
 gulp.task('watch-copy', function () {
@@ -78,4 +78,4 @@ gulp.task('dist', ['prod'], function () {
     return gulp.src('thunderbird/emoji@ganss.org/**/*')
         .pipe(zip('emoji.xpi'))
         .pipe(gulp.dest('.'));
-})
+});
