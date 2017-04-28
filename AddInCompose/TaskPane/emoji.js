@@ -6,7 +6,7 @@ Office.initialize = function () {
                 var val = e.Value;
                 var unicode = e.Key;
                 var span = document.createElement("span");
-                var sheet = typeof val.tone !== 'undefined' ? "diversity" : val.category;
+                var sheet = (typeof val.tone !== 'undefined') && val.tone !== "0" ? "diversity" : val.category;
                 var classes = ["emojione", "emojione-32-" + sheet, "_" + unicode, val.category];
 
                 span.id = unicode;
