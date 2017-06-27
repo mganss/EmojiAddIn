@@ -28,6 +28,7 @@ function Emoji(options) {
         $("#search input").on("input", handleSearchChange);
         $("#galleries").on("click", handleEmojiClick);
         $("#history").on("click", handleHistoryClick);
+        $("#tabs,#tones,#galleries").on("mousedown", function (e) { e.preventDefault(); }); // prevent focus on sidebar
     }
 
     function handleHistoryClick(e) {
