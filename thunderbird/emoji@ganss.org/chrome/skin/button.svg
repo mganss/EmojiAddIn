@@ -7,26 +7,16 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   viewBox="-1 -1 26 26"
-   height="24px"
-   width="24px"
-   id="svg3457"
+   xml:space="preserve"
+   viewBox="0 0 16 16"
+   height="16"
+   width="16"
+   y="0px"
+   x="0px"
+   id="Слой_1"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="people2.svg">
-  <metadata
-     id="metadata3468">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <sodipodi:namedview
+   sodipodi:docname="people.svg"><sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1"
@@ -35,106 +25,40 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="828"
-     inkscape:window-height="480"
-     id="namedview3466"
+     inkscape:window-width="1920"
+     inkscape:window-height="1137"
+     id="namedview3365"
      showgrid="false"
      inkscape:zoom="9.8333333"
-     inkscape:cx="12"
-     inkscape:cy="12"
-     inkscape:window-x="1055"
-     inkscape:window-y="312"
-     inkscape:window-maximized="0"
-     inkscape:current-layer="svg3457" />
-  <style>
-    .normal {
-      fill: #505050;
-      fill-opacity: 0.8;
-      stroke: #404040;
-    }
-    @media (-moz-windows-default-theme) and (-moz-os-version: windows-win8) {
-      .normal {
-        fill: #797c80;
-        fill-opacity: 1;
-        stroke: none;
-      }
-    }
-    @media (-moz-windows-default-theme) and (-moz-os-version: windows-win10) {
-      .normal {
-        fill: #4c4c4c;
-        fill-opacity: 1;
-        stroke: none;
-      }
-    }
-    @media (-moz-windows-default-theme) and (-moz-os-version: windows-vista),
-       (-moz-windows-default-theme) and (-moz-os-version: windows-win7) {
-      .normal {
-        fill: url(#win1);
-        fill-opacity: 1;
-        stroke: url(#win2);
-      }
-    }
-    @media (-moz-mac-lion-theme) {
-      .normal {
-        fill: url(#osx1);
-        fill-opacity: 1;
-        stroke: url(#osx2);
-      }
-    }
-    @media (-moz-mac-yosemite-theme) {
-      .normal {
-        fill: #4d4d4d;
-        fill-opacity: 1;
-        stroke: none;
-      }
-    }
-  </style>
-  <defs>
-    <linearGradient
-       id="win1"
-       x1="8"
-       y1="1"
-       x2="8"
-       y2="15"
-       gradientUnits="userSpaceOnUse">
-       <stop stop-color="#3f4f5a" offset="0"/>
-       <stop stop-color="#7e8c97" offset="1"/>
-    </linearGradient>
-    <linearGradient
-       id="win2"
-       x1="8"
-       y1="1"
-       x2="8"
-       y2="15"
-       gradientUnits="userSpaceOnUse">
-      <stop stop-color="#0c1b25" offset="0"/>
-      <stop stop-color="#4f585f" stop-opacity="0.9" offset="1"/>
-    </linearGradient>
-    <linearGradient
-       id="osx1"
-       x1="8"
-       y1="1"
-       x2="8"
-       y2="15"
-       gradientUnits="userSpaceOnUse">
-       <stop stop-color="#4f4f4f" stop-opacity="0.76" offset="0"/>
-       <stop stop-color="#717171" stop-opacity="0.6" offset="1"/>
-    </linearGradient>
-    <linearGradient
-       id="osx2"
-       x1="8"
-       y1="1"
-       x2="8"
-       y2="15"
-       gradientUnits="userSpaceOnUse">
-      <stop stop-color="#252525" stop-opacity="0.88" offset="0"/>
-      <stop stop-color="#505050" stop-opacity="0.68" offset="1"/>
-    </linearGradient>
-  </defs>
-    <g
-     id="g7222">
-    <path class="normal"
-       d="M 12 2 A 10 10 0 0 0 2 12 A 10 10 0 0 0 12 22 A 10 10 0 0 0 22 12 A 10 10 0 0 0 12 2 z M 8 7 C 9.105 7 10 7.895 10 9 C 10 10.105 9.105 11 8 11 C 6.895 11 6 10.105 6 9 C 6 7.895 6.895 7 8 7 z M 16 7 C 17.105 7 18 7.895 18 9 C 18 10.105 17.105 11 16 11 C 14.895 11 14 10.105 14 9 C 14 7.895 14.895 7 16 7 z M 6 13 L 18 13 C 18 16.314 15.314 19 12 19 C 8.686 19 6 16.314 6 13 z M 8.5351562 15 C 9.2271563 16.195 10.405812 17 11.882812 17 C 13.361812 17 14.539422 16.195 15.232422 15 L 15 15 L 8.5351562 15 z "
-       id="circle3461" />
-  </g>
-</svg>
+     inkscape:cx="11.881356"
+     inkscape:cy="6.9999999"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="Слой_1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" /><metadata
+     id="metadata7236"><rdf:RDF><cc:Work
+         rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
+     id="defs7234" /><g
+     id="g7222"
+     transform="matrix(0.58333333,0,0,0.58333333,1,1)"><path
+       style="fill:#000000;fill-opacity:1"
+       id="path7224"
+       d="M 12,0 C 5.373,0 0,5.373 0,12 0,18.627 5.373,24 12,24 18.627,24 24,18.627 24,12 24,5.373 18.627,0 12,0 m 0,22 C 6.486,22 2,17.514 2,12 2,6.486 6.486,2 12,2 c 5.514,0 10,4.486 10,10 0,5.514 -4.486,10 -10,10"
+       inkscape:connector-curvature="0" /><path
+       style="fill:#000000;fill-opacity:1"
+       id="path7226"
+       d="M 8,7 C 6.895,7 6,7.895 6,9 c 0,1.105 0.895,2 2,2 1.105,0 2,-0.895 2,-2 C 10,7.895 9.105,7 8,7"
+       inkscape:connector-curvature="0" /><path
+       style="fill:#000000;fill-opacity:1"
+       id="path7228"
+       d="m 16,7 c -1.105,0 -2,0.895 -2,2 0,1.105 0.895,2 2,2 1.105,0 2,-0.895 2,-2 0,-1.105 -0.895,-2 -2,-2"
+       inkscape:connector-curvature="0" /><path
+       style="fill:#000000;fill-opacity:1"
+       id="path7230"
+       d="m 15.232,15 c -0.693,1.195 -1.87,2 -3.349,2 -1.477,0 -2.655,-0.805 -3.347,-2 L 15,15 m 3,-2 -12,0 c 0,3.314 2.686,6 6,6 3.314,0 6,-2.686 6,-6"
+       inkscape:connector-curvature="0" /></g></svg>
