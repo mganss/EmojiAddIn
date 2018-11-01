@@ -11,7 +11,7 @@ xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
     <menuitem id="menu_EmojiSidebar" insertafter="menu_AddressSidebar" label="&emojiSidebar.label;" accesskey="&emojiSidebar.accesskey;" observes="viewEmoji" />
   </menupopup>
   <toolbarpalette id="MsgComposeToolbarPalette">
-    <toolbarbutton class="toolbarbutton-1" insertafter="button-contacts"
+    <toolbarbutton class="toolbarbutton-1" insertafter="button-save"
       id="button-emoji" label="&emojiButton.label;"
       tooltiptext="&emojiButton.tooltip;"
       observes="viewEmoji"/>
@@ -22,7 +22,7 @@ xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
       <sidebarheader id="emoji-header" align="center">
         <label id="emoji-title" value="Emoji" />
         <spacer flex="1"/>
-        <toolbarbutton class="ab-closebutton" oncommand="toggleEmoji();" />
+        <toolbarbutton class="ab-closebutton close-icon" oncommand="toggleEmoji();" />
       </sidebarheader>
       <browser id="emoji" flex="1" src="" disablehistory="true" tooltip="browserTooltip" />
       <tooltip id="browserTooltip" onpopupshowing="return fillTooltip(this)" />

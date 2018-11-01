@@ -62,20 +62,20 @@ gulp.task('watch-copy', function () {
         .on('change', logEvent);
 });
 
-gulp.task('watch', ['watch-sass', 'watch-copy']);
+gulp.task('watch', gulp.parallel('watch-sass', 'watch-copy'));
 
-gulp.task('default', ['sass', 'watch' /*, possible other tasks... */]);
+gulp.task('default', gulp.series('sass', 'watch' /*, possible other tasks... */));
 
-gulp.task('prod', ['sass', 'copyfiles'], function () {
+gulp.task('prod', gulp.series('sass', 'copyfiles', function () {
     return gulp
         .src(input)
         .pipe(sass({ outputStyle: 'compressed' }))
         .pipe(autoprefixer())
         .pipe(gulp.dest(output));
-});
+}));
 
-gulp.task('dist', ['prod'], function () {
+gulp.task('dist', gulp.series('prod', function () {
     return gulp.src('thunderbird/emoji@ganss.org/**/*')
         .pipe(zip('emoji.xpi'))
         .pipe(gulp.dest('.'));
-});
+}));

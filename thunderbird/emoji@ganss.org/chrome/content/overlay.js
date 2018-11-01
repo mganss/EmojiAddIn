@@ -71,6 +71,24 @@ function fillTooltip(tooltip)
     return false;
 }
 
+function installButton(toolbarId, id, afterId) {
+    if (!document.getElementById(id)) {
+        var toolbar = document.getElementById(toolbarId);
+
+        // If no afterId is given, then append the item to the toolbar
+        var before = null;
+        if (afterId) {
+            let elem = document.getElementById(afterId);
+            if (elem && elem.parentNode == toolbar)
+                before = elem.nextElementSibling;
+        }
+
+        toolbar.insertItem(id, before);
+        toolbar.setAttribute("currentset", toolbar.currentSet);
+        document.persist(toolbar.id, "currentset");
+    }
+}
+
 Components.utils.import('resource://gre/modules/Services.jsm');
 var prefs = Services.prefs.getBranch("extensions.emoji.");
 
@@ -78,14 +96,10 @@ window.addEventListener("load", function (e) {
     // add toolbar button
     var installed = prefs.prefHasUserValue("installed");
     if (!installed) {
-        var navbar = document.getElementById("composeToolbar2");
-        if (navbar.currentSet.indexOf("button-emoji") === -1) {
-            var newset = navbar.currentSet + ",button-emoji";
-            navbar.currentSet = newset;
-            navbar.setAttribute("currentset", newset);
-            document.persist("composeToolbar2", "currentset");
-        }
-        prefs.setBoolPref("installed", true);
+        setTimeout(() => {
+            installButton("composeToolbar2", "button-emoji", "button-save");
+            prefs.setBoolPref("installed", true);                
+        }, 0);
     }
 
     // show sidebar    
