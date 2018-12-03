@@ -14,6 +14,12 @@ Adds an emoji task pane to Outlook (desktop and web) and Mozilla Thunderbird usi
 
 Go to [the add-in's page in the Office Store](https://store.office.com/de-de/app.aspx?assetid=WA104380335) and click the Add button. Once you have added the add-in to your online account it will automatically be available from within Outlook Desktop also. If Outlook Desktop is open when you add the add-in online, you need to close and re-open Outlook Desktop for the add-in to become available there.
 
+The add-in works only with Exchange, Office 365, and Outlook.com account types, not IMAP or POP accounts. This is a limitation of Outlook add-ins in general. From the [documentation](https://docs.microsoft.com/en-us/outlook/add-ins/add-in-requirements):
+
+> The client must be connected to an Exchange server or Office 365 using a direct connection. When configuring the client, the user must choose an Exchange, Office 365, or Outlook.com account type. If the client is configured to connect with POP3 or IMAP, add-ins will not load.
+
+If you have both types of accounts configured, you can write an email using the Exchange-based account, then switch to the IMAP/POP account before sending by using the "From:" dropdown.
+
 ### Thunderbird
 
 In Thunderbird, go to Tools → Add-ons → Extensions and search for "Emoji" in the search box in the upper right-hand corner. In the result list, click Install on the right side.
