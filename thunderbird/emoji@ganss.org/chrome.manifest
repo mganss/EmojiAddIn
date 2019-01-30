@@ -4,4 +4,5 @@ skin emoji-os classic/1.0 chrome/skin/win/
 skin emoji-os classic/1.0 chrome/skin/mac/ os=Darwin
 skin emoji-os classic/1.0 chrome/skin/linux/ os=Linux
 locale emoji en-US chrome/locale/en-US/
+locale emoji de-DE chrome/locale/de-DE/
 overlay chrome://messenger/content/messengercompose/messengercompose.xul chrome://emoji/content/main.xul

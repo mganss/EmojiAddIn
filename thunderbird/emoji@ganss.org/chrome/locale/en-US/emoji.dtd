@@ -2,3 +2,6 @@
 <!ENTITY emojiSidebar.accesskey "e">
 <!ENTITY emojiButton.label "Emoji">
 <!ENTITY emojiButton.tooltip "Insert an emoji">
+<!ENTITY options.title "Emoji Options">
+<!ENTITY options.insertCharTitle "Insert character instead of image">
+<!ENTITY options.insertCharDesc "Always insert character instead of image by default">

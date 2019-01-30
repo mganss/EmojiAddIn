@@ -1,0 +1,7 @@
+<!ENTITY emojiSidebar.label "Emoji">
+<!ENTITY emojiSidebar.accesskey "e">
+<!ENTITY emojiButton.label "Emoji">
+<!ENTITY emojiButton.tooltip "Emoji einfügen">
+<!ENTITY options.title "Emoji Optionen">
+<!ENTITY options.insertCharTitle "Zeichen statt Grafik">
+<!ENTITY options.insertCharDesc "Standardmäßig immer Zeichen statt Grafik einfügen">

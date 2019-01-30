@@ -27,15 +27,23 @@ $(function () {
             return span;
         },
         insertText: function (unicode, emoji, forceText) {
-            var editorElement = window.parent.document.getElementById("content-frame");
-            if (editorElement.editortype === "htmlmail") {
-                var htmlEditor = editorElement.getHTMLEditor(editorElement.contentWindow);
-                var html = forceText ? emoji : ('<img style="width: 3ex; height: 3ex; min-width: 20px; min-height: 20px; display: inline-block; margin: 0 .15em .2ex; line-height: normal; vertical-align: middle" class="emojione" alt="'
-                    + emoji + '" src="' + 'https://cdn.jsdelivr.net/emojione/assets/4.5/png/64/' + unicode + '.png">');
-                htmlEditor.insertHTML(html);
+            var msgSubject = window.parent.document.getElementById("msgSubject");
+            if (msgSubject.hasAttribute("focused")) {
+                msgSubject.value += emoji;
             } else {
-                var textEditor = editorElement.getEditor(editorElement.contentWindow).QueryInterface(Components.interfaces.nsIPlaintextEditor);
-                textEditor.insertText(emoji);
+                var editorElement = window.parent.document.getElementById("content-frame");
+                if (editorElement.editortype === "htmlmail") {
+                    if (prefs.getBoolPref("insertChar", false)) {
+                        forceText = !forceText;
+                    }
+                    var htmlEditor = editorElement.getHTMLEditor(editorElement.contentWindow);
+                    var html = forceText ? emoji : ('<img style="width: 3ex; height: 3ex; min-width: 20px; min-height: 20px; display: inline-block; margin: 0 .15em .2ex; line-height: normal; vertical-align: middle" class="emojione" alt="'
+                        + emoji + '" src="' + 'https://cdn.jsdelivr.net/emojione/assets/4.5/png/64/' + unicode + '.png">');
+                    htmlEditor.insertHTML(html);
+                } else {
+                    var textEditor = editorElement.getEditor(editorElement.contentWindow).QueryInterface(Components.interfaces.nsIPlaintextEditor);
+                    textEditor.insertText(emoji);
+                }
             }
         }
     };

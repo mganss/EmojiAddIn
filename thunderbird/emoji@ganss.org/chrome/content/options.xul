@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://messenger/skin/preferences/preferences.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://emoji/locale/emoji.dtd" >
+ 
+<prefwindow id="emoji-prefs"
+     title="&options.title;"
+     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+ 
+<prefpane id="emoji-pane" label="Emoji Settings">
+  <preferences>
+    <preference id="pref_insertChar" name="extensions.emoji.insertChar" type="bool" />
+  </preferences>
+ 
+  <hbox align="top">
+    <label control="insertChar" value="&options.insertCharDesc;"/>
+    <checkbox preference="pref_insertChar" id="insertChar" />
+  </hbox>
+</prefpane>
+ 
+</prefwindow>
