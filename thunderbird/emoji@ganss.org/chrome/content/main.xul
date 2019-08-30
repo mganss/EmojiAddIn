@@ -4,17 +4,14 @@
 <!DOCTYPE overlay SYSTEM "chrome://emoji/locale/emoji.dtd" >
 <overlay id="emoji-overlay" 
 xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-  <broadcasterset id="composeBroadcasters">
-    <broadcaster id="viewEmoji" autoCheck="false" type="checkbox" oncommand="toggleEmoji();"/>
-  </broadcasterset>
   <menupopup id="menu_View_Popup">
-    <menuitem id="menu_EmojiSidebar" insertafter="menu_AddressSidebar" label="&emojiSidebar.label;" accesskey="&emojiSidebar.accesskey;" observes="viewEmoji" />
+    <menuitem id="menu_EmojiSidebar" insertafter="menu_AddressSidebar" label="&emojiSidebar.label;" accesskey="&emojiSidebar.accesskey;" type="checkbox" oncommand="toggleEmoji();" />
   </menupopup>
   <toolbarpalette id="MsgComposeToolbarPalette">
     <toolbarbutton class="toolbarbutton-1" insertafter="button-save"
       id="button-emoji" label="&emojiButton.label;"
       tooltiptext="&emojiButton.tooltip;"
-      observes="viewEmoji"/>
+      oncommand="toggleEmoji();" />
   </toolbarpalette>
   <hbox flex="1" id="composeContentBox">
     <splitter id="emoji-splitter" />

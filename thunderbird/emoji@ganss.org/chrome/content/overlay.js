@@ -1,11 +1,13 @@
 function toggleEmoji() {
     var sidebarBox = document.getElementById("emoji-box");
     var sidebarSplitter = document.getElementById("emoji-splitter");
-    var elt = document.getElementById("viewEmoji");
+    var menuItem = document.getElementById("menu_EmojiSidebar");
+    var button = document.getElementById("button-emoji");
     if (sidebarBox.hidden) {
         sidebarBox.hidden = false;
         sidebarSplitter.hidden = false;
-        elt.setAttribute("checked", "true");
+        button.setAttribute("checked", "true");
+        menuItem.setAttribute("checked", "true");
 
         var sidebar = document.getElementById("emoji");
         var sidebarUrl = sidebar.getAttribute("src");
@@ -21,7 +23,8 @@ function toggleEmoji() {
         sidebarBox.hidden = true;
         sidebarSplitter.hidden = true;
         sidebarBox.setAttribute("sidebarVisible", "false");
-        elt.removeAttribute("checked");
+        button.setAttribute("checked", "false");
+        menuItem.setAttribute("checked", "false");
     }
 }
 
