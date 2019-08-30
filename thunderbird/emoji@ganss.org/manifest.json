@@ -19,7 +19,7 @@
     "legacy": {
       "type": "xul",
       "options": {
-        "page": "chrome://emoji@ganss.org/content/options.xul",
+        "page": "chrome://emoji/content/preferences.xul",
         "open_in_tab": true
       }
     }
