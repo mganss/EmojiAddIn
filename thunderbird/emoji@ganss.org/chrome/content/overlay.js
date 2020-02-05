@@ -6,7 +6,9 @@ function toggleEmoji() {
     if (sidebarBox.hidden) {
         sidebarBox.hidden = false;
         sidebarSplitter.hidden = false;
-        button.setAttribute("checked", "true");
+        if (button !== null) {
+            button.setAttribute("checked", "true");
+        }
         menuItem.setAttribute("checked", "true");
 
         var sidebar = document.getElementById("emoji");
@@ -14,7 +16,7 @@ function toggleEmoji() {
         // if we have yet to initialize the src url on the sidebar then go ahead and do so now...
         // we do this lazily here, so we don't spend time when bringing up the compose window loading the emoji sidebar
         // data sources. Only when the user opens the emoji sidebar do we set the src url for the sidebar...
-        if (sidebarUrl == "")
+        if (sidebarUrl === "")
             sidebar.setAttribute("src", "chrome://emoji/content/emoji.html");
 
         sidebarBox.setAttribute("sidebarVisible", "true");
@@ -23,25 +25,27 @@ function toggleEmoji() {
         sidebarBox.hidden = true;
         sidebarSplitter.hidden = true;
         sidebarBox.setAttribute("sidebarVisible", "false");
-        button.setAttribute("checked", "false");
+        if (button !== null) {
+            button.setAttribute("checked", "false");
+        }
         menuItem.setAttribute("checked", "false");
     }
 }
 
 function emoji_is_hidden() {
   var emoji_box = document.getElementById('emoji-box');
-  return emoji_box.getAttribute('hidden') == 'true';
+  return emoji_box.getAttribute('hidden') === 'true';
 }
 
 function emoji_is_collapsed() {
   var emoji_splitter = document.getElementById('emoji-splitter');
   return (emoji_splitter &&
-          emoji_splitter.getAttribute('state') == 'collapsed');
+          emoji_splitter.getAttribute('state') === 'collapsed');
 }
 
 function emojiSetState(aState) {
-  document.getElementById("emoji-box").hidden = aState != "visible";
-  document.getElementById("emoji-splitter").hidden = aState == "hidden";
+  document.getElementById("emoji-box").hidden = aState !== "visible";
+  document.getElementById("emoji-splitter").hidden = aState === "hidden";
 }
 
 function emojiGetState() {
@@ -82,7 +86,7 @@ function installButton(toolbarId, id, afterId) {
         var before = null;
         if (afterId) {
             let elem = document.getElementById(afterId);
-            if (elem && elem.parentNode == toolbar)
+            if (elem && elem.parentNode === toolbar)
                 before = elem.nextElementSibling;
         }
 
@@ -101,15 +105,15 @@ window.addEventListener("load", function (e) {
     if (!installed) {
         setTimeout(() => {
             installButton("composeToolbar2", "button-emoji", "button-save");
-            prefs.setBoolPref("installed", true);                
+            prefs.setBoolPref("installed", true);
         }, 0);
     }
 
     // show sidebar    
     var sideBarBox = document.getElementById('emoji-box');
-    if (sideBarBox.getAttribute("sidebarVisible") == "true") {
+    if (sideBarBox.getAttribute("sidebarVisible") === "true") {
         // if we aren't supposed to have the side bar hidden, make sure it is visible
-        if (document.getElementById("emoji").getAttribute("src") == "")
+        if (document.getElementById("emoji").getAttribute("src") === "")
             setTimeout(toggleEmoji, 0);   // do this on a delay so we don't hurt perf. on bringing up a new compose window
     }
 
@@ -119,9 +123,9 @@ window.addEventListener("load", function (e) {
     PrintPreviewListener.onEnter = function () {
         onEnter();
         togglePrint(true);
-    }
+    };
     PrintPreviewListener.onExit = function () {
         onExit();
         togglePrint(false);
-    }
-})
+    };
+});

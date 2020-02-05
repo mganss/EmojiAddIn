@@ -5,12 +5,12 @@
   "version": "0.1.0",
   "scripts": {},
   "devDependencies": {
-    "chalk": "^2.4.1",
-    "gulp": "^4.0.0",
-    "gulp-autoprefixer": "^6.0.0",
+    "chalk": "^2.4.2",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^6.1.0",
     "gulp-flatten": "^0.4.0",
     "gulp-sass": "^4.0.2",
-    "gulp-sourcemaps": "^2.6.4",
+    "gulp-sourcemaps": "^2.6.5",
     "gulp-webserver": ">=0.9.1",
     "gulp-zip": "^4.2.0"
   }
