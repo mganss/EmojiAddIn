@@ -85,12 +85,13 @@ function Emoji(options) {
     }
 
     function handleEmojiClick(e) {
-        var target = $(e.target).closest("[data-unicode]");
+        var target = $(e.target).closest("[data-codepoint]");
 
         if (target.length > 0) {
-            var unicode = target.attr("data-unicode");
+            var unicode = target.attr("data-codepoint");
+            var id = target.attr("id");
             var emoji = convertUnicodeToString(unicode);
-            options.insertText(unicode, emoji, e.shiftKey);
+            options.insertText(id, emoji, e.shiftKey);
             storeHistory(unicode);
         }
 

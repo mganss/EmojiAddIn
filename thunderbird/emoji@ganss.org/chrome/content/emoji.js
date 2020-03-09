@@ -20,7 +20,7 @@ $(function () {
 
             span.id = unicode;
             span.title = val.name;
-            span.setAttribute("data-unicode", unicode);
+            span.setAttribute("data-codepoint", val.codepoint);
             if (typeof val.tone !== 'undefined') classes.push("tone-" + val.tone);
             span.className = classes.join(" ");
 

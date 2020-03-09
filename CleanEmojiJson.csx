@@ -20,6 +20,7 @@ foreach (var e in emojis)
     val.Remove("genders");
     val.Remove("gender_children");
     val.Remove("humanform");
+    val["codepoint"] = val["code_points"]["fully_qualified"];
     val.Remove("code_points");
     val.Remove("unicode_version");
     e.Value["keywords"] = new JArray(e.Value["keywords"].Distinct().ToArray());
