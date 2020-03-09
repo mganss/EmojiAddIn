@@ -1,4 +1,4 @@
-#! "netcoreapp2.1"
+#! "netcoreapp3.1"
 #r "nuget: Newtonsoft.Json, *"
 
 using Newtonsoft.Json;
@@ -14,8 +14,12 @@ foreach (var e in emojis)
     val.Remove("ascii");
     val.Remove("diversity");
     val.Remove("diversities");
+    val.Remove("diversity_base");
+    val.Remove("diversity_children");
     val.Remove("gender");
     val.Remove("genders");
+    val.Remove("gender_children");
+    val.Remove("humanform");
     val.Remove("code_points");
     val.Remove("unicode_version");
     e.Value["keywords"] = new JArray(e.Value["keywords"].Distinct().ToArray());

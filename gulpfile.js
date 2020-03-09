@@ -52,13 +52,13 @@ function logEvent(event) {
 
 gulp.task('watch-sass', function () {
     return gulp
-        .watch(input, ['sass'])
+        .watch(input, gulp.series('sass'))
         .on('change', logEvent);
 });
 
 gulp.task('watch-copy', function () {
     return gulp
-        .watch(copyInput, ['copyfiles'])
+        .watch(copyInput, gulp.series('copyfiles'))
         .on('change', logEvent);
 });
 

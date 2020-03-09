@@ -103,7 +103,7 @@ function Emoji(options) {
         if (qs.Count() < 1) return;
 
         $("#emoji-gallery").removeClass(categoryClasses).addClass("search");
-        $("#emoji-gallery .emojione").removeClass("match");
+        $("#emoji-gallery .joypixels").removeClass("match");
         $.Enumerable.From(emoji)
             .Where(function (e) {
                 return qs.Any(function (q) {
@@ -113,7 +113,7 @@ function Emoji(options) {
                 });
             })
             .ForEach(function (e) {
-                $(document.getElementById(e.Key)).addClass("match");
+                $(document.getElementsByClassName("_" + e.Key)).addClass("match");
             });
 
         $("#galleries").removeClass().addClass("emoji");
@@ -163,7 +163,7 @@ function Emoji(options) {
             .OrderBy(function (g) { return g.First().Value.order; })
             .SelectMany(function (g) {
                 if (g.Count() > 1) g.ForEach(function (e, i) {
-                    var match = /_tone(\d):$/.exec(e.Value.shortname);
+                    var match = /_tone(\d)/.exec(e.Value.shortname);
                     e.Value.tone = match !== null ? match[1] : "0";
                 });
                 return g;
