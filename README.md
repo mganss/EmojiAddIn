@@ -26,7 +26,7 @@ In Thunderbird, go to Tools → Add-ons → Extensions and search for "Emoji" in
 
 You can also download the add-on from its [detail page at Mozilla](https://addons.mozilla.org/de/thunderbird/addon/emojiaddin/) and then install using the [instructions here](http://kb.mozillazine.org/Extensions_(Thunderbird)).
 
-Once you have installed the add-on and restarted Thunderbird, the add-on will be available in the toolbar and the View menu when you write a message.
+Once you have installed the add-on and restarted Thunderbird, the add-on will be available from the View menu when you write a message. The toolbar button won't be visible by default, but you can add it to the toolbar by [customizing the toolbar](http://kb.mozillazine.org/Thunderbird_:_Tips_:_Customize_Toolbar).
 
 ## Screenshots
 
