@@ -7,6 +7,7 @@ Adds an emoji task pane to Outlook (desktop and web) and Mozilla Thunderbird usi
 * Select preferred skin tone
 * Search based on names and keywords
 * Works for HTML and text only emails
+* Chat (Thunderbird only)
 
 ## Installation
 
