@@ -82,17 +82,19 @@ function installButton(toolbarId, id, afterId) {
     if (!document.getElementById(id)) {
         var toolbar = document.getElementById(toolbarId);
 
-        // If no afterId is given, then append the item to the toolbar
-        var before = null;
-        if (afterId) {
-            let elem = document.getElementById(afterId);
-            if (elem && elem.parentNode === toolbar)
-                before = elem.nextElementSibling;
-        }
+        if (toolbar) {
+            // If no afterId is given, then append the item to the toolbar
+            var before = null;
+            if (afterId) {
+                let elem = document.getElementById(afterId);
+                if (elem && elem.parentNode === toolbar)
+                    before = elem.nextElementSibling;
+            }
 
-        toolbar.insertItem(id, before);
-        toolbar.setAttribute("currentset", toolbar.currentSet);
-        document.persist(toolbar.id, "currentset");
+            toolbar.insertItem(id, before);
+            toolbar.setAttribute("currentset", toolbar.currentSet);
+            document.persist(toolbar.id, "currentset");
+        }
     }
 }
 
@@ -117,15 +119,17 @@ window.addEventListener("load", function (e) {
             setTimeout(toggleEmoji, 0);   // do this on a delay so we don't hurt perf. on bringing up a new compose window
     }
 
-    var onEnter = PrintPreviewListener.onEnter;
-    var onExit = PrintPreviewListener.onExit;
+    if (typeof (PrintPreviewListener) !== "undefined") {
+        var onEnter = PrintPreviewListener.onEnter;
+        var onExit = PrintPreviewListener.onExit;
 
-    PrintPreviewListener.onEnter = function () {
-        onEnter();
-        togglePrint(true);
-    };
-    PrintPreviewListener.onExit = function () {
-        onExit();
-        togglePrint(false);
-    };
+        PrintPreviewListener.onEnter = function () {
+            onEnter();
+            togglePrint(true);
+        };
+        PrintPreviewListener.onExit = function () {
+            onExit();
+            togglePrint(false);
+        };
+    }
 });
