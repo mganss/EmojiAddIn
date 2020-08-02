@@ -12,15 +12,23 @@
       }
     },
     "icons": {
-      "32": "chrome/skin/icon.svg",
-      "48": "chrome/skin/icon.svg",
-      "96": "chrome/skin/icon.svg"
+      "32": "chrome/content/skin/icon.svg",
+      "48": "chrome/content/skin/icon.svg",
+      "96": "chrome/content/skin/icon.svg"
     },
-    "legacy": {
-      "type": "xul",
-      "options": {
-        "page": "chrome://emoji/content/preferences.xul",
-        "open_in_tab": true
+    "experiment_apis": {
+      "WindowListener": {
+        "schema": "api/WindowListener/schema.json",
+        "parent": {
+          "scopes": ["addon_parent"],
+          "paths": [["WindowListener"]],
+          "script": "api/WindowListener/implementation.js"
+        }
       }
+    },
+    "background": {
+      "scripts": [
+        "background.js"
+      ]
     }
   }

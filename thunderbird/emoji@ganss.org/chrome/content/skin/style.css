@@ -5,5 +5,5 @@
 }
 
 #button-emoji {
-    list-style-image: url("chrome://emoji/skin/button.svg");
+    list-style-image: url("chrome://emoji/content/skin/button.svg");
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<?xml-stylesheet href="chrome://emoji/skin/style.css" type="text/css"?>
-<?xml-stylesheet href="chrome://emoji-os/skin/emoji.css" type="text/css"?>
+<?xml-stylesheet href="chrome://emoji/content/skin/style.css" type="text/css"?>
+<?xml-stylesheet href="chrome://emoji-os/conten/skin/emoji.css" type="text/css"?>
 <!DOCTYPE overlay SYSTEM "chrome://emoji/locale/emoji.dtd" >
 <overlay id="emoji-overlay" 
 xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
