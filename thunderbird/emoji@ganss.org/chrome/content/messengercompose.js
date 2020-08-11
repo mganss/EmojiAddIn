@@ -5,11 +5,11 @@ function onLoad(activatedWhileWindowOpen) {
     let os = Services.appinfo.OS;
     let skin = os === "Darwin" ? "mac" : (os === "Linux" ? "linux" : "win"); 
 
-    injectCSS("chrome://emoji/content/skin/style.css");
-    injectCSS(`chrome://emoji/content/skin/${skin}/emoji.css`);
+    WL.injectCSS("chrome://emoji/content/skin/style.css");
+    WL.injectCSS(`chrome://emoji/content/skin/${skin}/emoji.css`);
 
     let xul = `<menupopup id="menu_View_Popup">
-    <menuitem id="menu_EmojiSidebar" insertafter="menu_AddressSidebar" label="&emojiSidebar.label;" accesskey="&emojiSidebar.accesskey;" type="checkbox" oncommand="window.${namespace}.toggleEmoji();" />
+    <menuitem id="menu_EmojiSidebar" insertafter="menu_AddressSidebar" label="&emojiSidebar.label;" accesskey="&emojiSidebar.accesskey;" type="checkbox" oncommand="EmojiOverlay.toggleEmoji();" />
   </menupopup>
   <hbox flex="1" id="composeContentBox">
     <splitter id="emoji-splitter" />
@@ -17,21 +17,21 @@ function onLoad(activatedWhileWindowOpen) {
       <sidebarheader id="emoji-header" align="center">
         <label id="emoji-title" value="Emoji" />
         <spacer flex="1"/>
-        <toolbarbutton class="ab-closebutton close-icon" oncommand="window.${namespace}.toggleEmoji();" />
+        <toolbarbutton class="ab-closebutton close-icon" oncommand="EmojiOverlay.toggleEmoji();" />
       </sidebarheader>
       <browser id="emoji" flex="1" src="" disablehistory="true" tooltip="browserTooltip" />
-      <tooltip id="browserTooltip" onpopupshowing="return window.${namespace}.fillTooltip(this)" />
+      <tooltip id="browserTooltip" onpopupshowing="return EmojiOverlay.fillTooltip(this)" />
     </vbox>
   </hbox>
   <toolbarpalette id="MsgComposeToolbarPalette">
     <toolbarbutton class="toolbarbutton-1" insertafter="button-save"
       id="button-emoji" label="&emojiButton.label;"
       tooltiptext="&emojiButton.tooltip;"
-      oncommand="window.${namespace}.toggleEmoji();" />
+      oncommand="EmojiOverlay.toggleEmoji();" removable="true" />
   </toolbarpalette>
   `;
 
-    injectElements(xul, ["chrome://emoji/locale/emoji.dtd"]);
+    WL.injectElements(xul, ["chrome://emoji/locale/emoji.dtd"], true);
 
     Services.scriptloader.loadSubScript("chrome://emoji/content/overlay.js", this, "UTF-8");
 }

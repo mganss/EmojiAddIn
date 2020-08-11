@@ -11,5 +11,8 @@ messenger.WindowListener.registerOptionsPage("chrome://emoji/content/preferences
 messenger.WindowListener.registerWindow(
     "chrome://messenger/content/messengercompose/messengercompose.xul", 
     "chrome://emoji/content/messengercompose.js");
+messenger.WindowListener.registerWindow(
+    "chrome://messenger/content/customizeToolbar.xul",
+    "chrome://emoji/content/customizeToolbar.js");
 messenger.WindowListener.registerShutdownScript("chrome://emoji/content/shutdown.js");
 messenger.WindowListener.startListening();
