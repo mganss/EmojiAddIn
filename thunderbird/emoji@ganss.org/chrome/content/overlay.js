@@ -51,21 +51,21 @@ window.EmojiOverlay = {
     },
 
     emojiGetState: function () {
-        if (EmojiOverlay.emoji_is_hidden())
+        if (window.EmojiOverlay.emoji_is_hidden())
             return "hidden";
-        if (EmojiOverlay.emoji_is_collapsed())
+        if (window.EmojiOverlay.emoji_is_collapsed())
             return "collapsed";
         return "visible";
     },
 
     togglePrint: function (aHide) {
         if (aHide) {
-            gChromeState.emoji = EmojiOverlay.emojiGetState();
-            EmojiOverlay.emojiSetState("hidden");
+            gChromeState.emoji = window.EmojiOverlay.emojiGetState();
+            window.EmojiOverlay.emojiSetState("hidden");
         }
         else {
             // restoring normal mode (i.e., leaving print preview mode)
-            EmojiOverlay.emojiSetState(gChromeState.emoji);
+            window.EmojiOverlay.emojiSetState(gChromeState.emoji);
         }
     },
 
@@ -102,12 +102,12 @@ window.EmojiOverlay = {
 Components.utils.import('resource://gre/modules/Services.jsm');
 var prefs = Services.prefs.getBranch("extensions.emoji.");
 
-window.addEventListener("load", function (e) {
+function onLoad() {
     // add toolbar button
     var installed = prefs.prefHasUserValue("installed");
     if (!installed) {
-        setTimeout(() => {
-            EmojiOverlay.installButton("composeToolbar2", "button-emoji", "button-save");
+        window.setTimeout(() => {
+            window.EmojiOverlay.installButton("composeToolbar2", "button-emoji", "button-save");
             prefs.setBoolPref("installed", true);
         }, 0);
     }
@@ -117,7 +117,7 @@ window.addEventListener("load", function (e) {
     if (sideBarBox.getAttribute("sidebarVisible") === "true") {
         // if we aren't supposed to have the side bar hidden, make sure it is visible
         if (document.getElementById("emoji").getAttribute("src") === "")
-            setTimeout(EmojiOverlay.toggleEmoji, 0);   // do this on a delay so we don't hurt perf. on bringing up a new compose window
+            window.setTimeout(window.EmojiOverlay.toggleEmoji, 0);   // do this on a delay so we don't hurt perf. on bringing up a new compose window
     }
 
     if (typeof (PrintPreviewListener) !== "undefined") {
@@ -126,11 +126,13 @@ window.addEventListener("load", function (e) {
 
         PrintPreviewListener.onEnter = function () {
             onEnter();
-            EmojiOverlay.togglePrint(true);
+            window.EmojiOverlay.togglePrint(true);
         };
         PrintPreviewListener.onExit = function () {
             onExit();
-            EmojiOverlay.togglePrint(false);
+            window.EmojiOverlay.togglePrint(false);
         };
     }
-});
+}
+
+onLoad();
