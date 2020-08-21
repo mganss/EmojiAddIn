@@ -4,7 +4,6 @@ messenger.WindowListener.registerChromeUrl([
     ["locale",  "emoji", "en-US",  "chrome/locale/en-US/"],
     ["locale",  "emoji", "de-DE",     "chrome/locale/de-DE/"]
 ]);
-messenger.WindowListener.registerOptionsPage("chrome://emoji/content/preferences.xul");
 messenger.WindowListener.registerWindow(
     "chrome://messenger/content/messenger.xul", 
     "chrome://emoji/content/messenger.js");

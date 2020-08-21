@@ -1,14 +1,16 @@
 $(function () {
+    var storage = window.parent.EmojiOverlay.messenger.storage;
     Components.utils.import('resource://gre/modules/Services.jsm');
-    var prefs = Services.prefs.getBranch("extensions.emoji.");
 
     var options = {
         localStorage: {
             getItem: function (name) {
-                return prefs.prefHasUserValue(name) ? prefs.getCharPref(name) : null;
+                return storage.sync.get(name);
             },
             setItem: function (name, value) {
-                prefs.setCharPref(name, value);
+                let o = {};
+                o[name] = value;
+                storage.sync.set(o);
             }
         },
         createEmojiImage: function (e) {
@@ -34,13 +36,15 @@ $(function () {
                 } else {
                     var editorElement = window.parent.document.getElementById("content-frame");
                     if (editorElement.editortype === "htmlmail") {
-                        if (prefs.getBoolPref("insertChar", false)) {
-                            forceText = !forceText;
-                        }
-                        var htmlEditor = editorElement.getHTMLEditor(editorElement.contentWindow);
-                        var html = forceText ? emoji : ('<img style="width: 3ex; height: 3ex; min-width: 20px; min-height: 20px; display: inline-block; margin: 0 .15em .2ex; line-height: normal; vertical-align: middle" class="joypixels" alt="'
-                            + emoji + '" src="' + 'https://cdn.jsdelivr.net/gh/joypixels/emoji-assets@v5.5.1/png/64/' + unicode + '.png">');
-                        htmlEditor.insertHTML(html);
+                        storage.sync.get("insertChar").then(r => {
+                            if (r.insertChar) {
+                                forceText = !forceText;
+                            }
+                            var htmlEditor = editorElement.getHTMLEditor(editorElement.contentWindow);
+                            var html = forceText ? emoji : ('<img style="width: 3ex; height: 3ex; min-width: 20px; min-height: 20px; display: inline-block; margin: 0 .15em .2ex; line-height: normal; vertical-align: middle" class="joypixels" alt="'
+                                + emoji + '" src="' + 'https://cdn.jsdelivr.net/gh/joypixels/emoji-assets@v5.5.1/png/64/' + unicode + '.png">');
+                            htmlEditor.insertHTML(html);
+                        });
                     } else {
                         var textEditor = editorElement.getEditor(editorElement.contentWindow).QueryInterface(Components.interfaces.nsIPlaintextEditor);
                         textEditor.insertText(emoji);

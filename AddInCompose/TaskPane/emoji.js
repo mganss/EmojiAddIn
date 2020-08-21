@@ -1,7 +1,15 @@
 Office.initialize = function () {
     $(function () {
         var options = {
-            localStorage: window.localStorage,
+            localStorage: {
+                getItem: function (name) {
+                    let val = window.localStorage.getItem(name);
+                    return Promise.resolve(val);
+                },
+                setItem: function (name, value) {
+                    window.localStorage.setItem(name, value);
+                }
+            },
             createEmojiImage: function (e) {
                 var val = e.Value;
                 var unicode = e.Key;

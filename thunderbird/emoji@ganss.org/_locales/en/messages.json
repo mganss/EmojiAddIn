@@ -1,0 +1,5 @@
+{
+    "options.insertCharDesc": {
+        "message": "Always insert character instead of image by default"
+    }
+}

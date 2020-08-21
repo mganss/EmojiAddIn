@@ -30,5 +30,10 @@
       "scripts": [
         "background.js"
       ]
-    }
+    },
+    "options_ui": {
+      "page": "options.html"
+    },
+    "default_locale": "en",
+    "permissions": [ "storage" ]
   }

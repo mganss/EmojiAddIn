@@ -96,20 +96,24 @@ window.EmojiOverlay = {
                 document.persist(toolbar.id, "currentset");
             }
         }
-    }
+    },
+
+    messenger: WL.messenger
 };
 
-Components.utils.import('resource://gre/modules/Services.jsm');
-var prefs = Services.prefs.getBranch("extensions.emoji.");
-
 function onLoad() {
-    // add toolbar button
-    var installed = prefs.prefHasUserValue("installed");
-    if (!installed) {
-        window.setTimeout(() => {
-            window.EmojiOverlay.installButton("composeToolbar2", "button-emoji", "button-save");
-            prefs.setBoolPref("installed", true);
-        }, 0);
+    if (document.URL.includes("messengercompose")) {
+        // add toolbar button
+        WL.messenger.storage.sync.get("installed").then(r => {
+            if (!r.installed) {
+                window.setTimeout(() => {
+                    window.EmojiOverlay.installButton("composeToolbar2", "button-emoji", "button-save");
+                    WL.messenger.storage.sync.set({
+                        installed: true
+                    });
+                }, 0);
+            }
+        });
     }
 
     // show sidebar    
