@@ -60,12 +60,12 @@ window.EmojiOverlay = {
 
     togglePrint: function (aHide) {
         if (aHide) {
-            gChromeState.emoji = window.EmojiOverlay.emojiGetState();
+            window.gChromeState.emoji = window.EmojiOverlay.emojiGetState();
             window.EmojiOverlay.emojiSetState("hidden");
         }
         else {
             // restoring normal mode (i.e., leaving print preview mode)
-            window.EmojiOverlay.emojiSetState(gChromeState.emoji);
+            window.EmojiOverlay.emojiSetState(window.gChromeState.emoji);
         }
     },
 
@@ -120,15 +120,15 @@ function onLoad() {
             window.setTimeout(window.EmojiOverlay.toggleEmoji, 0);   // do this on a delay so we don't hurt perf. on bringing up a new compose window
     }
 
-    if (typeof (PrintPreviewListener) !== "undefined") {
-        var onEnter = PrintPreviewListener.onEnter;
-        var onExit = PrintPreviewListener.onExit;
+    if (typeof (window.PrintPreviewListener) !== "undefined") {
+        var onEnter = window.PrintPreviewListener.onEnter;
+        var onExit = window.PrintPreviewListener.onExit;
 
-        PrintPreviewListener.onEnter = function () {
+        window.PrintPreviewListener.onEnter = function () {
             onEnter();
             window.EmojiOverlay.togglePrint(true);
         };
-        PrintPreviewListener.onExit = function () {
+        window.PrintPreviewListener.onExit = function () {
             onExit();
             window.EmojiOverlay.togglePrint(false);
         };
