@@ -1,5 +1,5 @@
 ﻿body, input {
-    font-family: 'Segoe UI', sans-serif;
+    font-family: sans-serif;
     background-color: white;
 }
 
@@ -152,18 +152,6 @@ footer {
 
     input {
         width: 100%;
-        height: 32px;
         box-sizing: border-box;
-        background-color: #eaeaea;
-        border: none;
-        outline: none;
-        font-size: 14px;
-        color: #666;
-        padding: 0 10px;
-        transition: background-color ease-in-out 150ms;
-
-        &:focus {
-            background-color: #b3d6f2;
-        }
     }
 }

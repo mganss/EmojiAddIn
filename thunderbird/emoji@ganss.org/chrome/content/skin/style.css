@@ -2,8 +2,40 @@
     min-width: 150px; 
     width: 300px; 
     max-width: 400px;
+    background-color: var(--toolbar-bgcolor);
 }
 
 #button-emoji {
     list-style-image: url("chrome://emoji/content/skin/button.svg");
+}
+
+#emoji-box .sidebar-header {
+    -moz-appearance: none;
+    height: 30px;
+    text-shadow: none;
+    background-color: -moz-Dialog;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05));
+    color: -moz-dialogText;
+    border-bottom: 1px solid var(--tabs-border-color);
+}
+
+:root[lwt-tree] #emoji-box .sidebar-header {
+    background-color: var(--toolbar-bgcolor);
+    color: var(--lwt-text-color);
+    border-bottom: 1px solid var(--tabs-border-color);
+}
+
+:root[lwt-tree-brighttext] #emoji-box .sidebar-header {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05));
+}
+
+#emoji-splitter {
+    border-inline-end-width: 0;
+    border-inline-start: 1px solid var(--splitter-color);
+    min-width: 0;
+    width: 5px;
+    background-color: transparent;
+    margin-inline-end: -5px;
+    position: relative;
+    z-index: 10;
 }

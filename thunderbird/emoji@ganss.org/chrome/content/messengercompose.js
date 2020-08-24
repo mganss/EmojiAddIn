@@ -2,11 +2,7 @@
 var { Services } = ChromeUtils.import("resource://gre/modules/Services.jsm");
 
 function onLoad(activatedWhileWindowOpen) {
-    let os = Services.appinfo.OS;
-    let skin = os === "Darwin" ? "mac" : (os === "Linux" ? "linux" : "win"); 
-
     WL.injectCSS("chrome://emoji/content/skin/style.css");
-    WL.injectCSS(`chrome://emoji/content/skin/${skin}/emoji.css`);
 
     let xul = `<menupopup id="menu_View_Popup">
     <menuitem id="menu_EmojiSidebar" insertafter="menu_AddressSidebar" label="&emojiSidebar.label;" accesskey="&emojiSidebar.accesskey;" type="checkbox" oncommand="EmojiOverlay.toggleEmoji();" />
@@ -14,11 +10,11 @@ function onLoad(activatedWhileWindowOpen) {
   <hbox flex="1" id="composeContentBox">
     <splitter id="emoji-splitter" />
     <vbox id="emoji-box" persist="sidebarVisible width" hidden="true">
-      <sidebarheader id="emoji-header" align="center">
+      <box id="emoji-header" align="center" class="sidebar-header">
         <label id="emoji-title" value="Emoji" />
         <spacer flex="1"/>
         <toolbarbutton class="ab-closebutton close-icon" oncommand="EmojiOverlay.toggleEmoji();" />
-      </sidebarheader>
+      </box>
       <browser id="emoji" flex="1" src="" disablehistory="true" tooltip="browserTooltip" />
       <tooltip id="browserTooltip" onpopupshowing="return EmojiOverlay.fillTooltip(this)" />
     </vbox>
@@ -31,7 +27,7 @@ function onLoad(activatedWhileWindowOpen) {
   </toolbarpalette>
   `;
 
-    WL.injectElements(xul, ["chrome://emoji/locale/emoji.dtd"], true);
+    WL.injectElements(xul, ["chrome://emoji/locale/emoji.dtd"]);
 
     Services.scriptloader.loadSubScript("chrome://emoji/content/overlay.js", this, "UTF-8");
 }

@@ -31,7 +31,7 @@ $(function () {
         insertText: function (unicode, emoji, forceText) {
             if (typeof (window.parent.chatHandler) === "undefined") {
                 var msgSubject = window.parent.document.getElementById("msgSubject");
-                if (msgSubject.hasAttribute("focused")) {
+                if (msgSubject === window.parent.document.activeElement) {
                     msgSubject.value += emoji;
                 } else {
                     var editorElement = window.parent.document.getElementById("content-frame");
