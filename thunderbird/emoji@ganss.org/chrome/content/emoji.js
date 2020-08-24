@@ -46,7 +46,7 @@ $(function () {
                             htmlEditor.insertHTML(html);
                         });
                     } else {
-                        var textEditor = editorElement.getEditor(editorElement.contentWindow).QueryInterface(Components.interfaces.nsIPlaintextEditor);
+                        var textEditor = editorElement.getEditor(editorElement.contentWindow);
                         textEditor.insertText(emoji);
                     }
                 }
