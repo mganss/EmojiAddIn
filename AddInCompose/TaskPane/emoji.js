@@ -4,7 +4,9 @@ Office.initialize = function () {
             localStorage: {
                 getItem: function (name) {
                     let val = window.localStorage.getItem(name);
-                    return Promise.resolve(val);
+                    let o = {};
+                    o[name] = val;
+                    return Promise.resolve(o);
                 },
                 setItem: function (name, value) {
                     window.localStorage.setItem(name, value);
