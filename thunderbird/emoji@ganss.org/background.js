@@ -1,4 +1,3 @@
-messenger.WindowListener.registerDefaultPrefs("defaults/preferences/defaults.js")
 messenger.WindowListener.registerChromeUrl([ 
     ["content", "emoji",           "chrome/content/"],
     ["locale",  "emoji", "en-US",  "chrome/locale/en-US/"],

@@ -1,5 +1,0 @@
-content emoji chrome/content/ contentaccessible=yes
-locale emoji en-US chrome/locale/en-US/
-locale emoji de-DE chrome/locale/de-DE/
-overlay chrome://messenger/content/messengercompose/messengercompose.xul chrome://emoji/content/main.xul
-overlay chrome://messenger/content/messenger.xul chrome://emoji/content/messenger.xul

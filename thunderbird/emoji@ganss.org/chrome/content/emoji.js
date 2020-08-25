@@ -36,8 +36,8 @@ $(function () {
                 } else {
                     var editorElement = window.parent.document.getElementById("content-frame");
                     if (editorElement.editortype === "htmlmail") {
-                        storage.sync.get("insertChar").then(r => {
-                            if (r.insertChar) {
+                        storage.sync.get("inputChar").then(r => {
+                            if (r.inputChar) {
                                 forceText = !forceText;
                             }
                             var htmlEditor = editorElement.getHTMLEditor(editorElement.contentWindow);

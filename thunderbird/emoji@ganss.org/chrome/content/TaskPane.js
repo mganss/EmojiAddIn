@@ -101,7 +101,7 @@ function Emoji(options) {
             var id = target.attr("id");
             var emoji = convertUnicodeToString(unicode);
             options.insertText(id, emoji, e.shiftKey);
-            storeHistory(unicode);
+            storeHistory(id);
         }
 
         e.preventDefault();
