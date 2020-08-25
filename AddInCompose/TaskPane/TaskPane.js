@@ -3,8 +3,8 @@ function Emoji(options) {
 
     var localStorage = options.localStorage;
     var emoji;
-    var tone = localStorage.getItem("tone") || "tone-0";
-    var tab = localStorage.getItem("tab") || "people";
+    var tone = "tone-0";
+    var tab = "people";
     var categoryClasses = "people nature food activity travel objects symbols flags search modifier regional";
 
     function initialize(reason) {
@@ -15,7 +15,13 @@ function Emoji(options) {
         });
     }
 
-    initialize();
+    localStorage.getItem("tab").then(function (r) {
+        tab = r.tab || "people";
+        localStorage.getItem("tone").then(function (r) {
+            tone = r.tone || "tone-0";
+            initialize();
+        });
+    });
 
     function gotoTab(tab) {
         if (tab === "history") $("#history").click();
@@ -34,21 +40,24 @@ function Emoji(options) {
     function handleHistoryClick(e) {
         $("#tabs a").removeClass("active");
         $(this).addClass("active");
-        var history = getHistory();
-        var gallery = $("#history-gallery");
-        gallery.empty();
-        var emojis = $.Enumerable.From(emoji);
-        var fragment = document.createDocumentFragment();
-        $.Enumerable.From(history)
-            .OrderByDescending("$.Value")
-            .Select(function (v) { return emojis.SingleOrDefault(null, function (e) { return e.Key === v.Key; }); })
-            .Where(function (v) { return v !== null; })
-            .ForEach(function (e) {
-                fragment.appendChild(options.createEmojiImage(e));
-            });
-        document.getElementById("history-gallery").appendChild(fragment);
-        $("#galleries").removeClass().addClass("history");
-        localStorage.setItem("tab", "history");
+
+        getHistory().then(function (history) {
+            var gallery = $("#history-gallery");
+            gallery.empty();
+            var emojis = $.Enumerable.From(emoji);
+            var fragment = document.createDocumentFragment();
+            $.Enumerable.From(history)
+                .OrderByDescending("$.Value")
+                .Select(function (v) { return emojis.SingleOrDefault(null, function (e) { return e.Key === v.Key; }); })
+                .Where(function (v) { return v !== null; })
+                .ForEach(function (e) {
+                    fragment.appendChild(options.createEmojiImage(e));
+                });
+            document.getElementById("history-gallery").appendChild(fragment);
+            $("#galleries").removeClass().addClass("history");
+            localStorage.setItem("tab", "history");
+        });
+
         e.preventDefault();
     }
 
@@ -92,7 +101,7 @@ function Emoji(options) {
             var id = target.attr("id");
             var emoji = convertUnicodeToString(unicode);
             options.insertText(id, emoji, e.shiftKey);
-            storeHistory(unicode);
+            storeHistory(id);
         }
 
         e.preventDefault();
@@ -129,15 +138,27 @@ function Emoji(options) {
     }
 
     function getHistory() {
-        var history = JSON.parse(localStorage.getItem("emoji")) || {};
-        return history;
+        return new Promise((resolve, reject) => {
+            localStorage.getItem("emoji").then(function (r) {
+                if (!r.emoji) resolve({});
+                else {
+                    try {
+                        var history = JSON.parse(r.emoji) || {};
+                        resolve(history);
+                    } catch (e) {
+                        resolve({});
+                    }
+                }
+            });
+        });
     }
 
     function storeHistory(unicode) {
-        var history = getHistory();
-        history[unicode] = (history[unicode] || 0) + 1;
-        var newHistory = $.Enumerable.From(history).OrderByDescending("$.Value").Take(50).ToObject("$.Key", "$.Value");
-        localStorage.setItem("emoji", JSON.stringify(newHistory));
+        getHistory().then(function (history) {
+            history[unicode] = (history[unicode] || 0) + 1;
+            var newHistory = $.Enumerable.From(history).OrderByDescending("$.Value").Take(50).ToObject("$.Key", "$.Value");
+            localStorage.setItem("emoji", JSON.stringify(newHistory));
+        });
     }
 
     function setTone(tone) {
