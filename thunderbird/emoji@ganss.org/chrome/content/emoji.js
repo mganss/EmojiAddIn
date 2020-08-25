@@ -42,7 +42,7 @@ $(function () {
                             }
                             var htmlEditor = editorElement.getHTMLEditor(editorElement.contentWindow);
                             var html = forceText ? emoji : ('<img style="width: 3ex; height: 3ex; min-width: 20px; min-height: 20px; display: inline-block; margin: 0 .15em .2ex; line-height: normal; vertical-align: middle" class="joypixels" alt="'
-                                + emoji + '" src="' + 'https://cdn.jsdelivr.net/gh/joypixels/emoji-assets@v5.5.1/png/64/' + unicode + '.png">');
+                                + emoji + '" src="' + 'https://cdn.jsdelivr.net/gh/joypixels/emoji-assets@v6.0.0/png/64/' + unicode + '.png">');
                             htmlEditor.insertHTML(html);
                         });
                     } else {
