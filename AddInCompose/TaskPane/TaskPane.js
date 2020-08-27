@@ -15,9 +15,9 @@ function Emoji(options) {
         });
     }
 
-    localStorage.getItem("tab").then(function (r) {
+    localStorage.getItem("tab", function (r) {
         tab = r.tab || "people";
-        localStorage.getItem("tone").then(function (r) {
+        localStorage.getItem("tone", function (r) {
             tone = r.tone || "tone-0";
             initialize();
         });
@@ -41,7 +41,7 @@ function Emoji(options) {
         $("#tabs a").removeClass("active");
         $(this).addClass("active");
 
-        getHistory().then(function (history) {
+        getHistory(function (history) {
             var gallery = $("#history-gallery");
             gallery.empty();
             var emojis = $.Enumerable.From(emoji);
@@ -137,24 +137,22 @@ function Emoji(options) {
         e.preventDefault();
     }
 
-    function getHistory() {
-        return new Promise((resolve, reject) => {
-            localStorage.getItem("emoji").then(function (r) {
-                if (!r.emoji) resolve({});
-                else {
-                    try {
-                        var history = JSON.parse(r.emoji) || {};
-                        resolve(history);
-                    } catch (e) {
-                        resolve({});
-                    }
+    function getHistory(resolve) {
+        localStorage.getItem("emoji", function (r) {
+            if (!r.emoji) resolve({});
+            else {
+                try {
+                    var history = JSON.parse(r.emoji) || {};
+                    resolve(history);
+                } catch (e) {
+                    resolve({});
                 }
-            });
+            }
         });
     }
 
     function storeHistory(unicode) {
-        getHistory().then(function (history) {
+        getHistory(function (history) {
             history[unicode] = (history[unicode] || 0) + 1;
             var newHistory = $.Enumerable.From(history).OrderByDescending("$.Value").Take(50).ToObject("$.Key", "$.Value");
             localStorage.setItem("emoji", JSON.stringify(newHistory));
