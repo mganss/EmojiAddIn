@@ -4,8 +4,8 @@ $(function () {
 
     var options = {
         localStorage: {
-            getItem: function (name) {
-                return storage.sync.get(name);
+            getItem: function (name, resolve) {
+                return storage.sync.get(name).then(resolve);
             },
             setItem: function (name, value) {
                 let o = {};

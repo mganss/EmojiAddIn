@@ -2,11 +2,11 @@ Office.initialize = function () {
     $(function () {
         var options = {
             localStorage: {
-                getItem: function (name) {
-                    let val = window.localStorage.getItem(name);
-                    let o = {};
+                getItem: function (name, resolve) {
+                    var val = window.localStorage.getItem(name);
+                    var o = {};
                     o[name] = val;
-                    return Promise.resolve(o);
+                    resolve(o);
                 },
                 setItem: function (name, value) {
                     window.localStorage.setItem(name, value);
