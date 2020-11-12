@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Emoji",
     "description": "Add emojis to your e-mails.",
-    "version": "1.78.5",
+    "version": "1.78.6",
     "author": "Michael Ganss",
     "homepage_url": "https://www.updatestar.com/dl/emoji/emoji.html",
     "applications": {

@@ -41,7 +41,7 @@ $(function () {
                                 forceText = !forceText;
                             }
                             var htmlEditor = editorElement.getHTMLEditor(editorElement.contentWindow);
-                            var html = forceText ? emoji : ('<img style="width: 3ex; height: 3ex; min-width: 20px; min-height: 20px; display: inline-block; margin: 0 .15em .2ex; line-height: normal; vertical-align: middle" class="joypixels" alt="'
+                            var html = forceText ? emoji : ('<img width="20" height="20" align="middle" style="width: 3ex; height: 3ex; min-width: 20px; min-height: 20px; display: inline-block; margin: 0 .15em .2ex; line-height: normal; vertical-align: middle" class="joypixels" alt="'
                                 + emoji + '" src="' + 'https://cdn.jsdelivr.net/gh/joypixels/emoji-assets@v6.0.0/png/64/' + unicode + '.png">');
                             htmlEditor.insertHTML(html);
                         });
