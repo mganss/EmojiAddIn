@@ -154,7 +154,7 @@ function Emoji(options) {
     function storeHistory(unicode) {
         getHistory(function (history) {
             history[unicode] = (history[unicode] || 0) + 1;
-            var newHistory = $.Enumerable.From(history).OrderByDescending("$.Value").Take(50).ToObject("$.Key", "$.Value");
+            var newHistory = $.Enumerable.From(history).OrderByDescending("$.Value").Take(100).ToObject("$.Key", "$.Value");
             localStorage.setItem("emoji", JSON.stringify(newHistory));
         });
     }

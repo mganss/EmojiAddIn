@@ -93,7 +93,6 @@ window.EmojiOverlay = {
 
                 toolbar.insertItem(id, before);
                 toolbar.setAttribute("currentset", toolbar.currentSet);
-                document.persist(toolbar.id, "currentset");
             }
         }
     },
