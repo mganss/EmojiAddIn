@@ -1,5 +1,5 @@
 #! "netcoreapp3.1"
-#r "nuget: Newtonsoft.Json, *"
+#r "nuget: Newtonsoft.Json, 13.0.1"
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
