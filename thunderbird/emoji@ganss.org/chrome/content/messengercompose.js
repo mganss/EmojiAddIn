@@ -15,8 +15,7 @@ function onLoad(activatedWhileWindowOpen) {
         <spacer flex="1"/>
         <toolbarbutton class="ab-closebutton close-icon" oncommand="EmojiOverlay.toggleEmoji();" />
       </box>
-      <browser id="emoji" flex="1" src="" disablehistory="true" tooltip="browserTooltip" />
-      <tooltip id="browserTooltip" onpopupshowing="return EmojiOverlay.fillTooltip(this)" />
+      <browser id="emoji" flex="1" src="" disablehistory="true" />
     </vbox>
   </hbox>
   <toolbarpalette id="MsgComposeToolbarPalette">
