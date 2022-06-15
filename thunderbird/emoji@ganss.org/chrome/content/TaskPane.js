@@ -34,7 +34,7 @@ function Emoji(options) {
         $("#search input").on("input", handleSearchChange);
         $("#galleries").on("click", handleEmojiClick);
         $("#history").on("click", handleHistoryClick);
-        $("#tabs,#tones,#galleries").on("mousedown", function (e) { e.preventDefault(); }); // prevent focus on sidebar
+        //$("#tabs,#tones,#galleries").on("mousedown", function (e) { e.preventDefault(); }); // prevent focus on sidebar
     }
 
     function handleHistoryClick(e) {
@@ -58,7 +58,7 @@ function Emoji(options) {
             localStorage.setItem("tab", "history");
         });
 
-        e.preventDefault();
+        //e.preventDefault();
     }
 
     function convertUnicodeToString(unicode) {
@@ -93,18 +93,16 @@ function Emoji(options) {
         }
     }
 
-    function handleEmojiClick(e) {
+    async function handleEmojiClick(e) {
         var target = $(e.target).closest("[data-codepoint]");
-
         if (target.length > 0) {
             var unicode = target.attr("data-codepoint");
             var id = target.attr("id");
             var emoji = convertUnicodeToString(unicode);
-            options.insertText(id, emoji, e.shiftKey);
+            await options.insertText(id, emoji, e.shiftKey);
             storeHistory(id);
         }
-
-        e.preventDefault();
+        //e.preventDefault();
     }
 
     function handleSearchChange(e) {
@@ -134,7 +132,7 @@ function Emoji(options) {
         var tone = this.className;
         localStorage.setItem("tone", tone);
         setTone(tone);
-        e.preventDefault();
+        //e.preventDefault();
     }
 
     function getHistory(resolve) {
@@ -154,8 +152,9 @@ function Emoji(options) {
     function storeHistory(unicode) {
         getHistory(function (history) {
             history[unicode] = (history[unicode] || 0) + 1;
-            var newHistory = $.Enumerable.From(history).OrderByDescending("$.Value").Take(100).ToObject("$.Key", "$.Value");
-            localStorage.setItem("emoji", JSON.stringify(newHistory));
+            // Throws CSP violation, lets do this in vanilla JS. What is this supposed to do?
+            //var newHistory = $.Enumerable.From(history).OrderByDescending("$.Value").Take(100).ToObject("$.Key", "$.Value");
+            //localStorage.setItem("emoji", JSON.stringify(newHistory));
         });
     }
 
@@ -172,7 +171,7 @@ function Emoji(options) {
         $("#emoji-gallery").removeClass(categoryClasses).addClass(category);
         $("#galleries").removeClass().addClass("emoji");
         localStorage.setItem("tab", category);
-        e.preventDefault();
+        //e.preventDefault();
     }
 
     function processEmojiObject(e) {
