@@ -2,12 +2,12 @@ $(function () {
     var options = {
         localStorage: {
             getItem: function (name, resolve) {
-                return messenger.storage.sync.get(name).then(resolve);
+                return messenger.storage.local.get(name).then(resolve);
             },
             setItem: function (name, value) {
                 let o = {};
                 o[name] = value;
-                messenger.storage.sync.set(o);
+                messenger.storage.local.set(o);
             }
         },
         createEmojiImage: function (e) {
@@ -38,7 +38,7 @@ $(function () {
                 */
                 if (!composeDetails.isPlainText) {
                     // HTML
-                    let { inputChar }= await messenger.storage.sync.get("inputChar");
+                    let { inputChar }= await messenger.storage.local.get("inputChar");
                     if (inputChar === "on") {
                         forceText = !forceText;
                     }

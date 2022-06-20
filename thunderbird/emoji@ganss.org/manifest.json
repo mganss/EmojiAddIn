@@ -17,7 +17,7 @@
       "96": "chrome/content/skin/icon.svg"
     },
     "compose_action": {
-      "default_area": "formattoolbar",
+      "default_area": "maintoolbar",
       "default_icon": {
         "32": "chrome/content/skin/icon.svg",
         "48": "chrome/content/skin/icon.svg",

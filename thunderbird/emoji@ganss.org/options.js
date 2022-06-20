@@ -13,13 +13,13 @@ function localize() {
 document.addEventListener("DOMContentLoaded", () => {
     localize();
 
-    messenger.storage.sync.get("inputChar").then(r => {
+    messenger.storage.local.get("inputChar").then(r => {
         document.querySelector("#inputChar").checked = r.inputChar === "on";
     });
 
     document.querySelector("#inputChar").addEventListener("change", e => {
         e.preventDefault();
-        messenger.storage.sync.set({
+        messenger.storage.local.set({
             inputChar: document.querySelector("#inputChar").checked ? "on" : "off"
         });
     });
