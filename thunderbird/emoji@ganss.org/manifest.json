@@ -22,18 +22,6 @@
         "48": "chrome/content/skin/button.svg",
         "96": "chrome/content/skin/button.svg"
       },
-      "theme_icons": [ 
-        {
-          "light": "chrome/content/skin/button.svg",
-          "dark": "chrome/content/skin/button_light.svg",
-          "size": 16
-        },
-        {
-          "light": "chrome/content/skin/button.svg",
-          "dark": "chrome/content/skin/button_light.svg",
-          "size": 32
-        } 
-      ],
       "default_popup": "chrome/content/emoji.html"
     },
     "experiment_apis": {
