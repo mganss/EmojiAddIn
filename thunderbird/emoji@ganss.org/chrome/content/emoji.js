@@ -26,6 +26,7 @@ $(function () {
             return span;
         },
         insertText: async function (unicode, emoji, forceText) {
+            messenger.Subject.test();
             // Get the active composer.
             let [composeTab] = await messenger.tabs.query({active: true, currentWindow: true, windowType: "messageCompose"})
             if (composeTab) {

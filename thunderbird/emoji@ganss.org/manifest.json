@@ -25,12 +25,12 @@
       "default_popup": "chrome/content/emoji.html"
     },
     "experiment_apis": {
-      "WindowListener": {
-        "schema": "api/WindowListener/schema.json",
+      "Subject": {
+        "schema": "api/Subject/schema.json",
         "parent": {
           "scopes": ["addon_parent"],
-          "paths": [["WindowListener"]],
-          "script": "api/WindowListener/implementation.js"
+          "paths": [["Subject"]],
+          "script": "api/Subject/implementation.js"
         }
       }
     },

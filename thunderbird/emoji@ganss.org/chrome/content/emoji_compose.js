@@ -1,6 +1,6 @@
 "use strict";
 
-browser.runtime.onMessage.addListener((request,sender) => {
+browser.runtime.onMessage.addListener((request, sender) => {
   if (request.text) {
       document.execCommand("insertText", false, request.text);
   } else   if (request.html) {

@@ -1,0 +1,12 @@
+[
+  {
+    "namespace": "Subject",    
+    "functions": [
+      {
+        "name": "test",
+        "type": "function",
+        "parameters": [ ]
+      }
+    ]
+  }
+]
