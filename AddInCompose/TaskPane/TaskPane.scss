@@ -30,8 +30,6 @@ a {
 }
 
 #tones {
-    margin-bottom: 20px;
-
     a {
         display: inline-block;
         width: 15px;
@@ -55,6 +53,14 @@ a {
             transform: scale(1.44);
         }
     }
+}
+
+#tooltip-container {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+    min-height: 20px;
+    color: #a6a6a6;
 }
 
 %invisible {

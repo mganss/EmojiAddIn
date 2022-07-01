@@ -1,5 +1,6 @@
 $(function () {
     var options = {
+        insertIntoBody: true,
         localStorage: {
             getItem: function (name, resolve) {
                 return messenger.storage.local.get(name).then(resolve);
@@ -26,35 +27,32 @@ $(function () {
             return span;
         },
         insertText: async function (unicode, emoji, forceText) {
-            messenger.Subject.test();
             // Get the active composer.
             let [composeTab] = await messenger.tabs.query({active: true, currentWindow: true, windowType: "messageCompose"})
             if (composeTab) {
                 let composeDetails = await messenger.compose.getComposeDetails(composeTab.id);
-                // Find method to check if subject WAS active.
-                /*
-                    if (msgSubject === window.parent.document.activeElement) {
-                        msgSubject.value += emoji;
-                    }
-                */
-                if (!composeDetails.isPlainText) {
-                    // HTML
-                    let { inputChar }= await messenger.storage.local.get("inputChar");
-                    if (inputChar === "on") {
-                        forceText = !forceText;
-                    }
-                    let html = forceText 
-                        ? emoji 
-                        : ('<img width="20" height="20" align="middle" style="width: 3ex; height: 3ex; min-width: 20px; min-height: 20px; display: inline-block; margin: 0 .15em .2ex; line-height: normal; vertical-align: middle" class="joypixels" alt="'
-                            + emoji + '" src="' + 'https://cdn.jsdelivr.net/gh/joypixels/emoji-assets@v6.6.0/png/64/' + unicode + '.png">');
+                if (options.insertIntoBody) {
+                    if (!composeDetails.isPlainText) {
+                        // HTML
+                        let { inputChar } = await messenger.storage.local.get("inputChar");
+                        if (inputChar === "on") {
+                            forceText = !forceText;
+                        }
+                        let html = forceText
+                            ? emoji
+                            : ('<img width="20" height="20" align="middle" style="width: 3ex; height: 3ex; min-width: 20px; min-height: 20px; display: inline-block; margin: 0 .15em .2ex; line-height: normal; vertical-align: middle" class="joypixels" alt="'
+                                + emoji + '" src="' + 'https://cdn.jsdelivr.net/gh/joypixels/emoji-assets@v6.6.0/png/64/' + unicode + '.png">');
 
-                    // Send a notification to the composer to insert html.
-                    await messenger.tabs.sendMessage(composeTab.id, {html});
+                        // Send a notification to the composer to insert html.
+                        await messenger.tabs.sendMessage(composeTab.id, { html });
+                    } else {
+                        // Send a notification to the composer to insert text.
+                        await messenger.tabs.sendMessage(composeTab.id, { text: emoji });
+                    }
                 } else {
-                    // Send a notification to the composer to insert text.
-                    await messenger.tabs.sendMessage(composeTab.id, {text: emoji});
+                    let subject = composeDetails.subject + emoji;
+                    await messenger.compose.setComposeDetails(composeTab.id, { subject });
                 }
-                
             }
             window.close();
         }
@@ -65,5 +63,27 @@ $(function () {
     $("#joypixels-link").click(function (e) {
         messenger.windows.openDefaultBrowser("https://www.joypixels.com/");
         //e.preventDefault();
+    });
+
+    window.addEventListener("focus", async _ => {
+        const maxBlurFocusDiff = 250;
+        let [composeTab] = await messenger.tabs.query({active: true, currentWindow: true, windowType: "messageCompose"})
+        let focusTimestamp = Date.now();
+        let timestampResult = await messenger.tabs.sendMessage(composeTab.id, { timestamp: true });
+        let blurTimestamp = timestampResult.blur;
+        options.insertIntoBody = (focusTimestamp - blurTimestamp) < maxBlurFocusDiff;
+    });
+
+    let tooltip = document.getElementById("tooltip");
+    let contentMain = document.getElementById("content-main");
+
+    contentMain.addEventListener("mouseover", e => {
+        if (e.target.matches("span[title]")) {
+            let title = e.target.title;
+            tooltip.innerHTML = title;
+        }
+    });
+    contentMain.addEventListener("mouseout", e => {
+        tooltip.innerHTML = "";
     });
 });
