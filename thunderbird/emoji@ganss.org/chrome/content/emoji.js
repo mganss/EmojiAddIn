@@ -28,7 +28,7 @@ $(function () {
         },
         insertText: async function (unicode, emoji, forceText) {
             // Get the active composer.
-            let [composeTab] = await messenger.tabs.query({active: true, currentWindow: true, windowType: "messageCompose"})
+            let [composeTab] = await messenger.tabs.query({ active: true, currentWindow: true, windowType: "messageCompose" })
             if (composeTab) {
                 let composeDetails = await messenger.compose.getComposeDetails(composeTab.id);
                 if (options.insertIntoBody) {
@@ -65,13 +65,11 @@ $(function () {
         //e.preventDefault();
     });
 
-    window.addEventListener("focus", async _ => {
-        const maxBlurFocusDiff = 250;
-        let [composeTab] = await messenger.tabs.query({active: true, currentWindow: true, windowType: "messageCompose"})
-        let focusTimestamp = Date.now();
-        let timestampResult = await messenger.tabs.sendMessage(composeTab.id, { timestamp: true });
-        let blurTimestamp = timestampResult.blur;
-        options.insertIntoBody = (focusTimestamp - blurTimestamp) < maxBlurFocusDiff;
+    messenger.tabs.query({ active: true, currentWindow: true, windowType: "messageCompose" }).then(result => {
+        let [composeTab] = result;
+        messenger.tabs.sendMessage(composeTab.id, { timestamp: true }).then(focusResult => {
+            options.insertIntoBody = focusResult.focus;
+        });
     });
 
     let tooltip = document.getElementById("tooltip");
