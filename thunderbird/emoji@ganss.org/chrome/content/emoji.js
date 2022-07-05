@@ -84,8 +84,4 @@ $(function () {
     contentMain.addEventListener("mouseout", e => {
         tooltip.innerHTML = "";
     });
-
-    let bgcolor = window.getComputedStyle(document.body).backgroundColor;
-    let nav = document.getElementById("nav");
-    nav.style.backgroundColor = bgcolor;
 });
