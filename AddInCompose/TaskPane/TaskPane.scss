@@ -57,10 +57,17 @@ a {
 
 #tooltip-container {
     margin-top: 5px;
-    margin-bottom: 10px;
+    padding-bottom: 10px;
     text-align: center;
     min-height: 20px;
     color: #a6a6a6;
+}
+
+#nav {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    padding-top: 10px;
 }
 
 %invisible {
@@ -75,7 +82,7 @@ a {
     max-width: 960px;
     margin: 0 auto;
     text-align: center;
-    padding: 10px;
+    padding: 0 10px;
 }
 
 footer {
