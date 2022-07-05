@@ -46,19 +46,19 @@
      id="defs7234" /><g
      id="g7222"
      transform="matrix(0.58333333,0,0,0.58333333,1,1)"><path
-       fill="context-fill" fill-opacity="context-fill-opacity"
+       fill="context-stroke" fill-opacity="context-fill-opacity"
        id="path7224"
        d="M 12,0 C 5.373,0 0,5.373 0,12 0,18.627 5.373,24 12,24 18.627,24 24,18.627 24,12 24,5.373 18.627,0 12,0 m 0,22 C 6.486,22 2,17.514 2,12 2,6.486 6.486,2 12,2 c 5.514,0 10,4.486 10,10 0,5.514 -4.486,10 -10,10"
        inkscape:connector-curvature="0" /><path
-       fill="context-fill" fill-opacity="context-fill-opacity"
+       fill="context-stroke" fill-opacity="context-fill-opacity"
        id="path7226"
        d="M 8,7 C 6.895,7 6,7.895 6,9 c 0,1.105 0.895,2 2,2 1.105,0 2,-0.895 2,-2 C 10,7.895 9.105,7 8,7"
        inkscape:connector-curvature="0" /><path
-       fill="context-fill" fill-opacity="context-fill-opacity"
+       fill="context-stroke" fill-opacity="context-fill-opacity"
        id="path7228"
        d="m 16,7 c -1.105,0 -2,0.895 -2,2 0,1.105 0.895,2 2,2 1.105,0 2,-0.895 2,-2 0,-1.105 -0.895,-2 -2,-2"
        inkscape:connector-curvature="0" /><path
-       fill="context-fill" fill-opacity="context-fill-opacity"
+       fill="context-stroke" fill-opacity="context-fill-opacity"
        id="path7230"
        d="m 15.232,15 c -0.693,1.195 -1.87,2 -3.349,2 -1.477,0 -2.655,-0.805 -3.347,-2 L 15,15 m 3,-2 -12,0 c 0,3.314 2.686,6 6,6 3.314,0 6,-2.686 6,-6"
        inkscape:connector-curvature="0" /></g></svg>

@@ -1,16 +1,14 @@
 $(function () {
-    var storage = window.parent.EmojiOverlay.messenger.storage;
-    Components.utils.import('resource://gre/modules/Services.jsm');
-
     var options = {
+        insertIntoBody: true,
         localStorage: {
             getItem: function (name, resolve) {
-                return storage.sync.get(name).then(resolve);
+                return messenger.storage.local.get(name).then(resolve);
             },
             setItem: function (name, value) {
                 let o = {};
                 o[name] = value;
-                storage.sync.set(o);
+                messenger.storage.local.set(o);
             }
         },
         createEmojiImage: function (e) {
@@ -28,44 +26,66 @@ $(function () {
 
             return span;
         },
-        insertText: function (unicode, emoji, forceText) {
-            if (typeof (window.parent.chatHandler) === "undefined") {
-                var msgSubject = window.parent.document.getElementById("msgSubject");
-                if (msgSubject === window.parent.document.activeElement) {
-                    msgSubject.value += emoji;
-                } else {
-                    var editorElement = window.parent.document.getElementById("content-frame");
-                    if (editorElement.editortype === "htmlmail") {
-                        storage.sync.get("inputChar").then(r => {
-                            if (r.inputChar === "on") {
-                                forceText = !forceText;
-                            }
-                            var htmlEditor = editorElement.getHTMLEditor(editorElement.contentWindow);
-                            var html = forceText ? emoji : ('<img width="20" height="20" align="middle" style="width: 3ex; height: 3ex; min-width: 20px; min-height: 20px; display: inline-block; margin: 0 .15em .2ex; line-height: normal; vertical-align: middle" class="joypixels" alt="'
+        insertText: async function (unicode, emoji, forceText) {
+            // Get the active composer.
+            let [composeTab] = await messenger.tabs.query({ active: true, currentWindow: true, windowType: "messageCompose" })
+            if (composeTab) {
+                let composeDetails = await messenger.compose.getComposeDetails(composeTab.id);
+                if (options.insertIntoBody) {
+                    if (!composeDetails.isPlainText) {
+                        // HTML
+                        let { inputChar } = await messenger.storage.local.get("inputChar");
+                        if (inputChar === "on") {
+                            forceText = !forceText;
+                        }
+                        let html = forceText
+                            ? emoji
+                            : ('<img width="20" height="20" align="middle" style="width: 3ex; height: 3ex; min-width: 20px; min-height: 20px; display: inline-block; margin: 0 .15em .2ex; line-height: normal; vertical-align: middle" class="joypixels" alt="'
                                 + emoji + '" src="' + 'https://cdn.jsdelivr.net/gh/joypixels/emoji-assets@v6.6.0/png/64/' + unicode + '.png">');
-                            htmlEditor.insertHTML(html);
-                        });
+
+                        // Send a notification to the composer to insert html.
+                        await messenger.tabs.sendMessage(composeTab.id, { html });
                     } else {
-                        var textEditor = editorElement.getEditor(editorElement.contentWindow);
-                        textEditor.insertText(emoji);
+                        // Send a notification to the composer to insert text.
+                        await messenger.tabs.sendMessage(composeTab.id, { text: emoji });
                     }
-                }
-            } else {
-                var acv = window.parent.chatHandler._getActiveConvView();
-                if (acv) {
-                    var editor = acv.editor;
-                    editor.value += emoji;
+                } else {
+                    let subject = composeDetails.subject + emoji;
+                    await messenger.compose.setComposeDetails(composeTab.id, { subject });
                 }
             }
+            window.close();
         }
     };
 
     Emoji(options);
 
     $("#joypixels-link").click(function (e) {
-        var messenger = Components.classes["@mozilla.org/messenger;1"].createInstance();
-        messenger = messenger.QueryInterface(Components.interfaces.nsIMessenger);
-        messenger.launchExternalURL("https://www.joypixels.com/");
-        e.preventDefault();
+        messenger.windows.openDefaultBrowser("https://www.joypixels.com/");
+        //e.preventDefault();
     });
+
+    messenger.tabs.query({ active: true, currentWindow: true, windowType: "messageCompose" }).then(result => {
+        let [composeTab] = result;
+        messenger.tabs.sendMessage(composeTab.id, { timestamp: true }).then(focusResult => {
+            options.insertIntoBody = focusResult.focus;
+        });
+    });
+
+    let tooltip = document.getElementById("tooltip");
+    let contentMain = document.getElementById("content-main");
+
+    contentMain.addEventListener("mouseover", e => {
+        if (e.target.matches("span[title]")) {
+            let title = e.target.title;
+            tooltip.innerHTML = title;
+        }
+    });
+    contentMain.addEventListener("mouseout", e => {
+        tooltip.innerHTML = "";
+    });
+
+    let bgcolor = window.getComputedStyle(document.body).backgroundColor;
+    let nav = document.getElementById("nav");
+    nav.style.backgroundColor = bgcolor;
 });
