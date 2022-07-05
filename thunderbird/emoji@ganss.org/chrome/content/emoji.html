@@ -12,27 +12,32 @@
 </head>
 <body>
     <div id="content-main">
-        <div id="search">
-            <input type="text" id="search-box" placeholder="Search">
-        </div>
-        <div id="tabs">
-            <a href="#" id="history"><span class="icon-recent" title="Recent"></span></a>
-            <a href="#" class="people"><span class="icon-people" title="Smileys &amp; People"></span></a>
-            <a href="#" class="nature"><span class="icon-nature" title="Animals &amp; Nature"></span></a>
-            <a href="#" class="food"><span class="icon-food" title="Food &amp; Drink"></span></a>
-            <a href="#" class="activity"><span class="icon-activity" title="Activity"></span></a>
-            <a href="#" class="travel"><span class="icon-travel" title="Travel &amp; Places"></span></a>
-            <a href="#" class="objects"><span class="icon-objects" title="Objects"></span></a>
-            <a href="#" class="symbols"><span class="icon-symbols" title="Symbols"></span></a>
-            <a href="#" class="flags"><span class="icon-flags" title="Flags"></span></a>
-        </div>
-        <div id="tones">
-            <a href="#" class="tone-0"></a>
-            <a href="#" class="tone-1"></a>
-            <a href="#" class="tone-2"></a>
-            <a href="#" class="tone-3"></a>
-            <a href="#" class="tone-4"></a>
-            <a href="#" class="tone-5"></a>
+        <div id="nav">
+            <div id="search">
+                <input type="text" id="search-box" placeholder="Search">
+            </div>
+            <div id="tabs">
+                <a href="#" id="history"><span class="icon-recent" title="Recent"></span></a>
+                <a href="#" class="people"><span class="icon-people" title="Smileys &amp; People"></span></a>
+                <a href="#" class="nature"><span class="icon-nature" title="Animals &amp; Nature"></span></a>
+                <a href="#" class="food"><span class="icon-food" title="Food &amp; Drink"></span></a>
+                <a href="#" class="activity"><span class="icon-activity" title="Activity"></span></a>
+                <a href="#" class="travel"><span class="icon-travel" title="Travel &amp; Places"></span></a>
+                <a href="#" class="objects"><span class="icon-objects" title="Objects"></span></a>
+                <a href="#" class="symbols"><span class="icon-symbols" title="Symbols"></span></a>
+                <a href="#" class="flags"><span class="icon-flags" title="Flags"></span></a>
+            </div>
+            <div id="tones">
+                <a href="#" class="tone-0"></a>
+                <a href="#" class="tone-1"></a>
+                <a href="#" class="tone-2"></a>
+                <a href="#" class="tone-3"></a>
+                <a href="#" class="tone-4"></a>
+                <a href="#" class="tone-5"></a>
+            </div>
+            <div id="tooltip-container">
+                <span id="tooltip"></span>
+            </div>
         </div>
         <div id="galleries" class="emoji">
             <div id="history-gallery">
@@ -45,7 +50,6 @@
         </footer>
     </div>
     <script src="jquery-3.1.1.min.js"></script>
-    <script src="jquery.linq.min.js"></script>
     <script src="TaskPane.js"></script>
     <script src="emoji.js"></script>
 </body>

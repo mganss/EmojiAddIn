@@ -1,39 +1,40 @@
 {
-    "manifest_version": 2,
-    "name": "Emoji",
-    "description": "Add emojis to your e-mails.",
-    "version": "1.91.8",
-    "author": "Michael Ganss",
-    "homepage_url": "https://www.updatestar.com/dl/emoji/emoji.html",
-    "applications": {
-      "gecko": {
-        "id": "emoji@ganss.org",
-        "strict_min_version": "91.0"
-      }
+  "manifest_version": 2,
+  "name": "Emoji",
+  "description": "Add emojis to your e-mails.",
+  "version": "1.102.9",
+  "author": "Michael Ganss",
+  "homepage_url": "https://www.updatestar.com/dl/emoji/emoji.html",
+  "applications": {
+    "gecko": {
+      "id": "emoji@ganss.org",
+      "strict_min_version": "102.0"
+    }
+  },
+  "icons": {
+    "32": "chrome/content/skin/icon.svg",
+    "48": "chrome/content/skin/icon.svg",
+    "96": "chrome/content/skin/icon.svg"
+  },
+  "compose_action": {
+    "default_icon": {
+      "32": "chrome/content/skin/button.svg",
+      "48": "chrome/content/skin/button.svg",
+      "96": "chrome/content/skin/button.svg"
     },
-    "icons": {
-      "32": "chrome/content/skin/icon.svg",
-      "48": "chrome/content/skin/icon.svg",
-      "96": "chrome/content/skin/icon.svg"
-    },
-    "experiment_apis": {
-      "WindowListener": {
-        "schema": "api/WindowListener/schema.json",
-        "parent": {
-          "scopes": ["addon_parent"],
-          "paths": [["WindowListener"]],
-          "script": "api/WindowListener/implementation.js"
-        }
-      }
-    },
-    "background": {
-      "scripts": [
-        "background.js"
-      ]
-    },
-    "options_ui": {
-      "page": "options.html"
-    },
-    "default_locale": "en",
-    "permissions": [ "storage" ]
-  }
+    "default_popup": "chrome/content/emoji.html"
+  },
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "options_ui": {
+    "page": "options.html"
+  },
+  "default_locale": "en",
+  "permissions": [
+    "storage",
+    "compose"
+  ]
+}
