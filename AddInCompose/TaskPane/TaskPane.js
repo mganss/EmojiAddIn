@@ -34,7 +34,6 @@ function Emoji(options) {
         $("#search input").on("input", handleSearchChange);
         $("#galleries").on("click", handleEmojiClick);
         $("#history").on("click", handleHistoryClick);
-        $("#tabs,#tones,#galleries").on("mousedown", function (e) { e.preventDefault(); }); // prevent focus on sidebar
     }
 
     function handleHistoryClick(e) {
@@ -44,21 +43,20 @@ function Emoji(options) {
         getHistory(function (history) {
             var gallery = $("#history-gallery");
             gallery.empty();
-            var emojis = $.Enumerable.From(emoji);
             var fragment = document.createDocumentFragment();
-            $.Enumerable.From(history)
-                .OrderByDescending("$.Value")
-                .Select(function (v) { return emojis.SingleOrDefault(null, function (e) { return e.Key === v.Key; }); })
-                .Where(function (v) { return v !== null; })
-                .ForEach(function (e) {
-                    fragment.appendChild(options.createEmojiImage(e));
-                });
+            var h = Object.entries(history);
+
+            h.sort((a, b) => b[1] - a[1]);
+            h.map(kv => Object.entries(emoji).find(e => e[0] === kv[0]))
+                .filter(e => e !== undefined)
+                .forEach(e => fragment.appendChild(options.createEmojiImage({ Key: e[0], Value: e[1] })));
+
             document.getElementById("history-gallery").appendChild(fragment);
             $("#galleries").removeClass().addClass("history");
             localStorage.setItem("tab", "history");
         });
 
-        e.preventDefault();
+        //e.preventDefault();
     }
 
     function convertUnicodeToString(unicode) {
@@ -93,38 +91,34 @@ function Emoji(options) {
         }
     }
 
-    function handleEmojiClick(e) {
+    async function handleEmojiClick(e) {
         var target = $(e.target).closest("[data-codepoint]");
-
         if (target.length > 0) {
             var unicode = target.attr("data-codepoint");
             var id = target.attr("id");
             var emoji = convertUnicodeToString(unicode);
-            options.insertText(id, emoji, e.shiftKey);
+            await options.insertText(id, emoji, e.shiftKey);
             storeHistory(id);
         }
-
-        e.preventDefault();
+        //e.preventDefault();
     }
 
     function handleSearchChange(e) {
-        var qs = $.Enumerable.From($(this).val().toLowerCase().split(/[^a-z0-9]+/)).Where("$.length >= 2");
+        var qs = $(this).val().toLowerCase().split(/[^a-z0-9]+/).filter(q => q.length >= 2);
 
-        if (qs.Count() < 1) return;
+        if (qs.length < 1) return;
 
         $("#emoji-gallery").removeClass(categoryClasses).addClass("search");
         $("#emoji-gallery .joypixels").removeClass("match");
-        $.Enumerable.From(emoji)
-            .Where(function (e) {
-                return qs.Any(function (q) {
-                    return e.Value.name.indexOf(q) >= 0
-                        || e.Value.shortname.indexOf(q) >= 0
-                        || $.Enumerable.From(e.Value.keywords).Any(function (k) { return k.indexOf(q) >= 0; });
-                });
-            })
-            .ForEach(function (e) {
-                $(document.getElementsByClassName("_" + e.Key)).addClass("match");
-            });
+
+        Object.entries(emoji)
+            .filter(e => qs.filter(q => {
+                let v = e[1];
+                return v.name.indexOf(q) >= 0
+                    || v.shortname.indexOf(q) >= 0
+                    || v.keywords.filter(k => k.indexOf(q) >= 0).length > 0;
+            }).length > 0)
+            .forEach(e => $(document.getElementsByClassName("_" + e[0])).addClass("match"));
 
         $("#galleries").removeClass().addClass("emoji");
         $("#tabs a").removeClass("active");
@@ -134,7 +128,7 @@ function Emoji(options) {
         var tone = this.className;
         localStorage.setItem("tone", tone);
         setTone(tone);
-        e.preventDefault();
+        //e.preventDefault();
     }
 
     function getHistory(resolve) {
@@ -154,7 +148,9 @@ function Emoji(options) {
     function storeHistory(unicode) {
         getHistory(function (history) {
             history[unicode] = (history[unicode] || 0) + 1;
-            var newHistory = $.Enumerable.From(history).OrderByDescending("$.Value").Take(50).ToObject("$.Key", "$.Value");
+            let h = Object.entries(history);
+            h.sort((a, b) => b[1] - a[1]);
+            let newHistory = Object.fromEntries(h.slice(0, 100));
             localStorage.setItem("emoji", JSON.stringify(newHistory));
         });
     }
@@ -172,25 +168,30 @@ function Emoji(options) {
         $("#emoji-gallery").removeClass(categoryClasses).addClass(category);
         $("#galleries").removeClass().addClass("emoji");
         localStorage.setItem("tab", category);
-        e.preventDefault();
+        //e.preventDefault();
     }
 
     function processEmojiObject(e) {
+        const groupBy = (x,f)=>x.reduce((a,b)=>((a[f(b)]||=[]).push(b),a),{});
         emoji = e;
         var fragment = document.createDocumentFragment();
-        $.Enumerable.From(emoji)
-            .GroupBy(function (e) { return e.Value.shortname.replace(/_tone\d/, ''); })
-            .OrderBy(function (g) { return g.First().Value.order; })
-            .SelectMany(function (g) {
-                if (g.Count() > 1) g.ForEach(function (e, i) {
-                    var match = /_tone(\d)/.exec(e.Value.shortname);
-                    e.Value.tone = match !== null ? match[1] : "0";
+        let groups = Object.entries(groupBy(Object.entries(emoji), e => e[1].shortname.replace(/_tone\d/, '')));
+        groups.sort((a, b) => a[1][0][1].order - b[1][0][1].order);
+        groups
+            .map(a => {
+                let g = a[1];
+                if (g.length > 1) g.forEach(e => {
+                    let v = e[1];
+                    var match = /_tone(\d)/.exec(v.shortname);
+                    v.tone = match !== null ? match[1] : "0";
                 });
                 return g;
             })
-            .ForEach(function (e) {
-                fragment.appendChild(options.createEmojiImage(e));
+            .flat()
+            .forEach(e => {
+                fragment.appendChild(options.createEmojiImage({ Key: e[0], Value: e[1] }));
             });
+        
         document.getElementById("emoji-gallery").appendChild(fragment);
     }
 
