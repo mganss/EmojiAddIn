@@ -7,6 +7,24 @@ function Emoji(options) {
     var tab = "people";
     var categoryClasses = "people nature food activity travel objects symbols flags search modifier regional";
 
+    /**
+     * Object.entries() polyfill
+     * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
+     */
+    if (!Object.entries) {
+        Object.entries = function (obj){
+            var ownProps = Object.keys(obj),
+                i = ownProps.length,
+                resArray = new Array(i); // preallocate the Array
+
+            while (i--)
+                resArray[i] = [ownProps[i], obj[ownProps[i]]];
+
+            return resArray;
+
+        };
+    }
+
     function initialize(reason) {
         setTone(tone);
         attachEventHandlers();
