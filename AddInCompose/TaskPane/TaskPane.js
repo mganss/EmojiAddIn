@@ -7,6 +7,45 @@ function Emoji(options) {
     var tab = "people";
     var categoryClasses = "people nature food activity travel objects symbols flags search modifier regional";
 
+    /**
+     * Object.entries() polyfill
+     * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
+     */
+    if (!Object.entries) {
+        Object.entries = function (obj){
+            var ownProps = Object.keys(obj),
+                i = ownProps.length,
+                resArray = new Array(i); // preallocate the Array
+
+            while (i--)
+                resArray[i] = [ownProps[i], obj[ownProps[i]]];
+
+            return resArray;
+
+        };
+    }
+
+    // https://github.com/jonathantneal/array-flat-polyfill
+    if (!Array.prototype.flat) {
+        Object.defineProperty(Array.prototype, 'flat', {
+            configurable: true,
+            value: function flat () {
+                var depth = isNaN(arguments[0]) ? 1 : Number(arguments[0]);
+    
+                return depth ? Array.prototype.reduce.call(this, function (acc, cur) {
+                    if (Array.isArray(cur)) {
+                        acc.push.apply(acc, flat.call(cur, depth - 1));
+                    } else {
+                        acc.push(cur);
+                    }
+    
+                    return acc;
+                }, []) : Array.prototype.slice.call(this);
+            },
+            writable: true
+        });
+    }
+
     function initialize(reason) {
         setTone(tone);
         attachEventHandlers();
@@ -46,10 +85,10 @@ function Emoji(options) {
             var fragment = document.createDocumentFragment();
             var h = Object.entries(history);
 
-            h.sort((a, b) => b[1] - a[1]);
-            h.map(kv => Object.entries(emoji).find(e => e[0] === kv[0]))
-                .filter(e => e !== undefined)
-                .forEach(e => fragment.appendChild(options.createEmojiImage({ Key: e[0], Value: e[1] })));
+            h.sort(function (a, b) { return b[1] - a[1]; });
+            h.map(function (kv) { return Object.entries(emoji).find(function (e) { return e[0] === kv[0]; }); })
+                .filter(function (e) { return e !== undefined; })
+                .forEach(function (e) { return fragment.appendChild(options.createEmojiImage({ Key: e[0], Value: e[1] })); });
 
             document.getElementById("history-gallery").appendChild(fragment);
             $("#galleries").removeClass().addClass("history");
@@ -91,20 +130,20 @@ function Emoji(options) {
         }
     }
 
-    async function handleEmojiClick(e) {
+    function handleEmojiClick(e) {
         var target = $(e.target).closest("[data-codepoint]");
         if (target.length > 0) {
             var unicode = target.attr("data-codepoint");
             var id = target.attr("id");
             var emoji = convertUnicodeToString(unicode);
-            await options.insertText(id, emoji, e.shiftKey);
+            options.insertText(id, emoji, e.shiftKey);
             storeHistory(id);
         }
         //e.preventDefault();
     }
 
     function handleSearchChange(e) {
-        var qs = $(this).val().toLowerCase().split(/[^a-z0-9]+/).filter(q => q.length >= 2);
+        var qs = $(this).val().toLowerCase().split(/[^a-z0-9]+/).filter(function (q) { return q.length >= 2; });
 
         if (qs.length < 1) return;
 
@@ -112,13 +151,14 @@ function Emoji(options) {
         $("#emoji-gallery .joypixels").removeClass("match");
 
         Object.entries(emoji)
-            .filter(e => qs.filter(q => {
-                let v = e[1];
-                return v.name.indexOf(q) >= 0
-                    || v.shortname.indexOf(q) >= 0
-                    || v.keywords.filter(k => k.indexOf(q) >= 0).length > 0;
-            }).length > 0)
-            .forEach(e => $(document.getElementsByClassName("_" + e[0])).addClass("match"));
+            .filter(function (e) {
+                return qs.filter(function (q) {
+                    let v = e[1];
+                    return v.name.indexOf(q) >= 0
+                        || v.shortname.indexOf(q) >= 0
+                        || v.keywords.filter(function (k) { return k.indexOf(q) >= 0; }).length > 0;
+                }).length > 0; })
+            .forEach(function (e) { return $(document.getElementsByClassName("_" + e[0])).addClass("match"); });
 
         $("#galleries").removeClass().addClass("emoji");
         $("#tabs a").removeClass("active");
@@ -149,7 +189,7 @@ function Emoji(options) {
         getHistory(function (history) {
             history[unicode] = (history[unicode] || 0) + 1;
             let h = Object.entries(history);
-            h.sort((a, b) => b[1] - a[1]);
+            h.sort(function (a, b) { return b[1] - a[1]; });
             let newHistory = Object.fromEntries(h.slice(0, 100));
             localStorage.setItem("emoji", JSON.stringify(newHistory));
         });
@@ -172,15 +212,24 @@ function Emoji(options) {
     }
 
     function processEmojiObject(e) {
-        const groupBy = (x,f)=>x.reduce((a,b)=>((a[f(b)]||=[]).push(b),a),{});
+        const groupBy = function (x, f) {
+            return x.reduce(function (a, b) {
+                let k = f(b);
+                if (!a[k]) {
+                    a[k] = [];
+                }
+                a[k].push(b);
+                return a;
+            }, {});
+        };
         emoji = e;
         var fragment = document.createDocumentFragment();
-        let groups = Object.entries(groupBy(Object.entries(emoji), e => e[1].shortname.replace(/_tone\d/, '')));
-        groups.sort((a, b) => a[1][0][1].order - b[1][0][1].order);
+        let groups = Object.entries(groupBy(Object.entries(emoji), function (e) { return e[1].shortname.replace(/_tone\d/, ''); }));
+        groups.sort(function (a, b) { return a[1][0][1].order - b[1][0][1].order; });
         groups
-            .map(a => {
+            .map(function (a) {
                 let g = a[1];
-                if (g.length > 1) g.forEach(e => {
+                if (g.length > 1) g.forEach(function (e) {
                     let v = e[1];
                     var match = /_tone(\d)/.exec(v.shortname);
                     v.tone = match !== null ? match[1] : "0";
@@ -188,7 +237,7 @@ function Emoji(options) {
                 return g;
             })
             .flat()
-            .forEach(e => {
+            .forEach(function (e) {
                 fragment.appendChild(options.createEmojiImage({ Key: e[0], Value: e[1] }));
             });
         
