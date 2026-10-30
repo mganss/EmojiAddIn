@@ -2,7 +2,6 @@
 
 var gulp = require('gulp');
 var sass = require('gulp-sass')(require('sass'));
-var sourcemaps = require('gulp-sourcemaps');
 var flatten = require('gulp-flatten');
 var browserSync = require('browser-sync').create();
 
@@ -35,10 +34,8 @@ gulp.task('sass', async function () {
 
     return gulp
         .src(input)
-        .pipe(sourcemaps.init())
         .pipe(sass(sassOptions).on('error', sass.logError))
         .pipe(autoprefixer())
-        .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(output))
         .pipe(flatten())
         .pipe(gulp.dest('./thunderbird/emoji@ganss.org/chrome/content'));
