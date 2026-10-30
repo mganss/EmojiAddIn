@@ -1,6 +1,24 @@
+:root {
+    color-scheme: light dark;
+}
+
+html {
+    overflow: hidden;
+}
+
 body {
-    background-color: inherit;
+    background-color: var(--in-content-page-background, Canvas);
+    color: var(--in-content-page-color, CanvasText);
     width: 300px;
+}
+
+/* Only the emoji list scrolls, so its scrollbar takes space from the list instead of covering the page */
+#galleries {
+    max-height: 340px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin: 0 -10px;
+    padding: 0 10px 10px;
 }
 
 a:hover {
@@ -8,5 +26,10 @@ a:hover {
 }
 
 #nav {
-    background-color: var(--in-content-page-background);
+    background-color: var(--in-content-page-background, Canvas);
+}
+
+#search input {
+    background-color: var(--in-content-box-background, Field);
+    color: var(--in-content-page-color, FieldText);
 }

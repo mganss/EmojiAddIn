@@ -1,4 +1,23 @@
 $(function () {
+    // The compose window blocks remote content by default, so the image is embedded as a data URL.
+    async function createEmojiHtml(unicode, emoji) {
+        let src = 'https://cdn.jsdelivr.net/gh/joypixels/emoji-assets@v7.0.0/png/64/' + unicode + '.png';
+        try {
+            let response = await fetch(src);
+            if (!response.ok) throw new Error(response.statusText);
+            let blob = await response.blob();
+            src = await new Promise((resolve, reject) => {
+                let reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = () => reject(reader.error);
+                reader.readAsDataURL(blob);
+            });
+        } catch (e) {
+            // fall back to the remote URL
+        }
+        return '<img width="20" height="20" align="middle" style="width: 3ex; height: 3ex; min-width: 20px; min-height: 20px; display: inline-block; margin: 0 .15em .2ex; line-height: normal; vertical-align: middle" class="joypixels" alt="'
+            + emoji + '" src="' + src + '">';
+    }
     var options = {
         insertIntoBody: true,
         localStorage: {
@@ -40,8 +59,7 @@ $(function () {
                         }
                         let html = forceText
                             ? emoji
-                            : ('<img width="20" height="20" align="middle" style="width: 3ex; height: 3ex; min-width: 20px; min-height: 20px; display: inline-block; margin: 0 .15em .2ex; line-height: normal; vertical-align: middle" class="joypixels" alt="'
-                                + emoji + '" src="' + 'https://cdn.jsdelivr.net/gh/joypixels/emoji-assets@v7.0.0/png/64/' + unicode + '.png">');
+                            : await createEmojiHtml(unicode, emoji);
 
                         // Send a notification to the composer to insert html.
                         await messenger.tabs.sendMessage(composeTab.id, { html });
