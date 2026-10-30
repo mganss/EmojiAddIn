@@ -32,4 +32,22 @@ a:hover {
 #search input {
     background-color: var(--in-content-box-background, Field);
     color: var(--in-content-page-color, FieldText);
+    padding-right: 36px;
 }
+
+#search { position: relative; }
+#search-clear {
+    position: absolute;
+    right: 2px;
+    top: 0;
+    height: 32px;
+    min-width: 32px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font-size: 20px;
+    cursor: pointer;
+}
+#search-clear[hidden] { display: none; }

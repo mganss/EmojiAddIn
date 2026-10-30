@@ -13,13 +13,13 @@ $(function () {
                 reader.readAsDataURL(blob);
             });
         } catch (e) {
-            // fall back to the remote URL
+            return emoji;
         }
         return '<img width="20" height="20" align="middle" style="width: 3ex; height: 3ex; min-width: 20px; min-height: 20px; display: inline-block; margin: 0 .15em .2ex; line-height: normal; vertical-align: middle" class="joypixels" alt="'
             + emoji + '" src="' + src + '">';
     }
     var options = {
-        insertIntoBody: true,
+        confirmInsertion: true,
         localStorage: {
             getItem: function (name, resolve) {
                 return messenger.storage.local.get(name).then(resolve);
@@ -27,7 +27,7 @@ $(function () {
             setItem: function (name, value) {
                 let o = {};
                 o[name] = value;
-                messenger.storage.local.set(o);
+                return messenger.storage.local.set(o);
             }
         },
         createEmojiImage: function (e) {
@@ -45,12 +45,16 @@ $(function () {
 
             return span;
         },
-        insertText: async function (unicode, emoji, forceText) {
+        insertText: async function (unicode, emoji, forceText, onSuccess) {
+            if (options.inserting) return;
+            options.inserting = true;
+            try {
             // Get the active composer.
             let [composeTab] = await messenger.tabs.query({ active: true, currentWindow: true, windowType: "messageCompose" })
-            if (composeTab) {
+            if (!composeTab) throw new Error("No active compose window.");
+            let insertIntoBody = await focusTarget;
                 let composeDetails = await messenger.compose.getComposeDetails(composeTab.id);
-                if (options.insertIntoBody) {
+                if (insertIntoBody) {
                     if (!composeDetails.isPlainText) {
                         // HTML
                         let { inputChar } = await messenger.storage.local.get("inputChar");
@@ -62,33 +66,43 @@ $(function () {
                             : await createEmojiHtml(unicode, emoji);
 
                         // Send a notification to the composer to insert html.
-                        await messenger.tabs.sendMessage(composeTab.id, { html });
+                        let result = await messenger.tabs.sendMessage(composeTab.id, { html });
+                        if (!result || !result.success) throw new Error("The message editor could not insert the emoji.");
                     } else {
                         // Send a notification to the composer to insert text.
-                        await messenger.tabs.sendMessage(composeTab.id, { text: emoji });
+                        let result = await messenger.tabs.sendMessage(composeTab.id, { text: emoji });
+                        if (!result || !result.success) throw new Error("The message editor could not insert the emoji.");
                     }
                 } else {
                     let subject = composeDetails.subject + emoji;
                     await messenger.compose.setComposeDetails(composeTab.id, { subject });
                 }
+            onSuccess(function () { window.close(); });
+            } catch (error) {
+                options.inserting = false;
+                console.error(error);
+                alert("Could not insert the emoji. Please try again.");
             }
-            window.close();
         }
     };
 
     Emoji(options);
 
     $("#joypixels-link").click(function (e) {
+        e.preventDefault();
         messenger.windows.openDefaultBrowser("https://www.joypixels.com/");
-        //e.preventDefault();
     });
 
-    messenger.tabs.query({ active: true, currentWindow: true, windowType: "messageCompose" }).then(result => {
+    let focusTarget = messenger.tabs.query({ active: true, currentWindow: true, windowType: "messageCompose" }).then(result => {
         let [composeTab] = result;
-        messenger.tabs.sendMessage(composeTab.id, { timestamp: true }).then(focusResult => {
-            options.insertIntoBody = focusResult.focus;
-        });
+        if (!composeTab) throw new Error("No active compose window.");
+        return messenger.tabs.sendMessage(composeTab.id, { timestamp: true });
+    }).then(focusResult => {
+        if (!focusResult || typeof focusResult.focus !== "boolean") throw new Error("Could not determine the insertion target.");
+        return focusResult.focus;
     });
+    // Mark the rejection handled until an insertion awaits it.
+    focusTarget.catch(() => {});
 
     let tooltip = document.getElementById("tooltip");
     let contentMain = document.getElementById("content-main");

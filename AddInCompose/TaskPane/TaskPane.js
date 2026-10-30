@@ -71,11 +71,15 @@ function Emoji(options) {
         $("#tabs a").not("#history").on("click", handleCategoryClick);
         $("#tones a").on("click", handleToneClick);
         $("#search input").on("input", handleSearchChange);
+        $("#search-clear").on("click", function () {
+            $("#search-box").val("").trigger("input").focus();
+        });
         $("#galleries").on("click", handleEmojiClick);
         $("#history").on("click", handleHistoryClick);
     }
 
     function handleHistoryClick(e) {
+        tab = "history";
         $("#tabs a").removeClass("active");
         $(this).addClass("active");
 
@@ -136,8 +140,12 @@ function Emoji(options) {
             var unicode = target.attr("data-codepoint");
             var id = target.attr("id");
             var emoji = convertUnicodeToString(unicode);
-            options.insertText(id, emoji, e.shiftKey);
-            storeHistory(id);
+            if (options.confirmInsertion) {
+                options.insertText(id, emoji, e.shiftKey, function (done) { storeHistory(id, done); });
+            } else {
+                options.insertText(id, emoji, e.shiftKey);
+                storeHistory(id);
+            }
         }
         //e.preventDefault();
     }
@@ -145,7 +153,11 @@ function Emoji(options) {
     function handleSearchChange(e) {
         var qs = $(this).val().toLowerCase().split(/[^a-z0-9]+/).filter(function (q) { return q.length >= 2; });
 
-        if (qs.length < 1) return;
+        $("#search-clear").prop("hidden", !$(this).val());
+        if (qs.length < 1) {
+            gotoTab(tab);
+            return;
+        }
 
         $("#emoji-gallery").removeClass(categoryClasses).addClass("search");
         $("#emoji-gallery .joypixels").removeClass("match");
@@ -185,13 +197,14 @@ function Emoji(options) {
         });
     }
 
-    function storeHistory(unicode) {
+    function storeHistory(unicode, done) {
         getHistory(function (history) {
             history[unicode] = (history[unicode] || 0) + 1;
             let h = Object.entries(history);
             h.sort(function (a, b) { return b[1] - a[1]; });
             let newHistory = Object.fromEntries(h.slice(0, 100));
-            localStorage.setItem("emoji", JSON.stringify(newHistory));
+            var saved = localStorage.setItem("emoji", JSON.stringify(newHistory));
+            if (done) Promise.resolve(saved).then(done, done);
         });
     }
 
@@ -202,7 +215,8 @@ function Emoji(options) {
     }
 
     function handleCategoryClick(e) {
-        var category = this.className;
+        var category = this.className.replace(/\bactive\b/g, "").trim();
+        tab = category;
         $("#tabs a").removeClass("active");
         $(this).addClass("active");
         $("#emoji-gallery").removeClass(categoryClasses).addClass(category);
