@@ -1,7 +1,5 @@
 /* jshint esversion: 6 */
 
-messenger = window.messenger.extension.getBackgroundPage().messenger;
-
 function localize() {
     document.querySelectorAll("[data-l10n-id]").forEach(e => {
         let id = e.attributes["data-l10n-id"].value;
