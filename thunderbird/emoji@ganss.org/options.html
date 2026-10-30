@@ -1,12 +1,50 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Emoji settings</title>
+        <link rel="stylesheet" href="options.css">
         <script src="options.js"></script>
     </head>
     <body>
-        <div style="font-size: 12px; margin: 10px;">
-            <label for="inputChar" data-l10n-id="options.insertCharDesc" style="vertical-align: middle"></label>
-            <input type="checkbox" name="inputChar" id="inputChar" style="vertical-align: middle">
-        </div>
+        <main>
+            <header>
+                <div>
+                    <h1 data-l10n-id="options.title"></h1>
+                    <p data-l10n-id="options.subtitle"></p>
+                </div>
+            </header>
+            <fieldset>
+                <legend data-l10n-id="options.displayMode"></legend>
+                <div class="choices">
+                    <label class="choice">
+                        <input type="radio" name="displayMode" value="popup" checked>
+                        <span>
+                            <strong data-l10n-id="options.popup"></strong>
+                            <span class="description" data-l10n-id="options.popupHelp"></span>
+                        </span>
+                    </label>
+                    <label class="choice">
+                        <input type="radio" name="displayMode" value="window">
+                        <span>
+                            <strong data-l10n-id="options.window"></strong>
+                            <span class="description" data-l10n-id="options.windowHelp"></span>
+                        </span>
+                    </label>
+                </div>
+            </fieldset>
+            <section class="insertion" aria-labelledby="insertion-heading">
+                <h2 id="insertion-heading" data-l10n-id="options.insertion"></h2>
+                <label class="checkbox-row">
+                    <input type="checkbox" name="inputChar" id="inputChar" aria-describedby="character-help">
+                    <span>
+                        <strong data-l10n-id="options.insertCharDesc"></strong>
+                        <span class="description" id="character-help" data-l10n-id="options.characterHelp"></span>
+                    </span>
+                </label>
+            </section>
+            <footer data-l10n-id="options.savedAutomatically"></footer>
+        </main>
     </body>
 </html>

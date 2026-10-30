@@ -1,4 +1,22 @@
 $(function () {
+    const params = new URLSearchParams(window.location.search);
+    const composeTabId = Number(params.get("composeTab")) || null;
+    if (composeTabId) {
+        document.documentElement.classList.add("picker-window");
+        document.title = "Emoji";
+        let boundsTimer;
+        const saveBounds = () => {
+            clearTimeout(boundsTimer);
+            boundsTimer = setTimeout(async () => {
+                try {
+                    const { width, height, left, top } = await messenger.windows.getCurrent();
+                    await messenger.storage.local.set({ pickerBounds: { width, height, left, top } });
+                } catch (error) { console.error(error); }
+            }, 250);
+        };
+        window.addEventListener("resize", saveBounds);
+        window.addEventListener("blur", saveBounds);
+    }
     // The compose window blocks remote content by default, so the image is embedded as a data URL.
     async function createEmojiHtml(unicode, emoji) {
         let src = 'https://cdn.jsdelivr.net/gh/joypixels/emoji-assets@v11.0.0/png/64/' + unicode + '.png';
@@ -50,9 +68,12 @@ $(function () {
             options.inserting = true;
             try {
             // Get the active composer.
-            let [composeTab] = await messenger.tabs.query({ active: true, currentWindow: true, windowType: "messageCompose" })
+            let composeTab = composeTabId ? { id: composeTabId } :
+                (await messenger.tabs.query({ active: true, currentWindow: true, windowType: "messageCompose" }))[0];
             if (!composeTab) throw new Error("No active compose window.");
-            let insertIntoBody = await focusTarget;
+            let insertIntoBody = composeTabId
+                ? (await messenger.runtime.sendMessage({ command: "emojiGetDestination", tabId: composeTabId })).body
+                : await focusTarget;
                 let composeDetails = await messenger.compose.getComposeDetails(composeTab.id);
                 if (insertIntoBody) {
                     if (!composeDetails.isPlainText) {
@@ -66,18 +87,21 @@ $(function () {
                             : await createEmojiHtml(unicode, emoji);
 
                         // Send a notification to the composer to insert html.
-                        let result = await messenger.tabs.sendMessage(composeTab.id, { html });
+                        let result = await messenger.tabs.sendMessage(composeTab.id, { html, restoreSelection: !!composeTabId });
                         if (!result || !result.success) throw new Error("The message editor could not insert the emoji.");
                     } else {
                         // Send a notification to the composer to insert text.
-                        let result = await messenger.tabs.sendMessage(composeTab.id, { text: emoji });
+                        let result = await messenger.tabs.sendMessage(composeTab.id, { text: emoji, restoreSelection: !!composeTabId });
                         if (!result || !result.success) throw new Error("The message editor could not insert the emoji.");
                     }
                 } else {
                     let subject = composeDetails.subject + emoji;
                     await messenger.compose.setComposeDetails(composeTab.id, { subject });
                 }
-            onSuccess(function () { window.close(); });
+            onSuccess(function () {
+                options.inserting = false;
+                if (!composeTabId) window.close();
+            });
             } catch (error) {
                 options.inserting = false;
                 console.error(error);
@@ -93,7 +117,7 @@ $(function () {
         messenger.windows.openDefaultBrowser("https://www.joypixels.com/");
     });
 
-    let focusTarget = messenger.tabs.query({ active: true, currentWindow: true, windowType: "messageCompose" }).then(result => {
+    let focusTarget = composeTabId ? Promise.resolve(true) : messenger.tabs.query({ active: true, currentWindow: true, windowType: "messageCompose" }).then(result => {
         let [composeTab] = result;
         if (!composeTab) throw new Error("No active compose window.");
         return messenger.tabs.sendMessage(composeTab.id, { timestamp: true });

@@ -1,5 +1,15 @@
 {
+    "options.title": { "message": "Emoji settings" },
+    "options.subtitle": { "message": "Make the picker work the way you compose." },
+    "options.popupHelp": { "message": "A compact picker that closes after you insert an emoji." },
+    "options.windowHelp": { "message": "Keep the picker open beside your draft for repeated insertion." },
+    "options.insertion": { "message": "Emoji insertion" },
+    "options.characterHelp": { "message": "Use your device’s emoji style instead of JoyPixels images. Hold Shift when inserting to switch for one emoji." },
+    "options.savedAutomatically": { "message": "Changes are saved automatically." },
+    "options.displayMode": { "message": "Emoji picker" },
+    "options.popup": { "message": "Toolbar dropdown" },
+    "options.window": { "message": "Separate window" },
     "options.insertCharDesc": {
-        "message": "Always insert character instead of image by default"
+        "message": "Insert emoji as characters by default"
     }
 }

@@ -1,5 +1,14 @@
 # Emoji for Outlook and Thunderbird
 
+In Thunderbird's add-on options, select **Toolbar dropdown** (the default) or
+**Separate window** under **Emoji picker**. In separate-window mode, the Emoji
+toolbar button opens or focuses a persistent picker linked to that draft. It
+stays open after insertion and closes when its draft closes. The picker remembers
+whether you last used the body or left the editor for the subject/header area;
+subject insertion appends to the subject. Window size and
+position are remembered. This uses standard WebExtension APIs and ComposeScripts;
+no Experiment or full-access permission is required.
+
 Adds an emoji task pane to Outlook (desktop and web) and Mozilla Thunderbird using the awesome [JoyPixels](https://www.joypixels.com/) (fka EmojiOne) emoji set. Features:
 
 * History

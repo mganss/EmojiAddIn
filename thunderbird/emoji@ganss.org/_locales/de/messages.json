@@ -1,5 +1,15 @@
 {
+    "options.title": { "message": "Emoji-Einstellungen" },
+    "options.subtitle": { "message": "Passen Sie die Emoji-Auswahl an Ihre Arbeitsweise an." },
+    "options.popupHelp": { "message": "Eine kompakte Auswahl, die sich nach dem Einfügen schließt." },
+    "options.windowHelp": { "message": "Die Auswahl bleibt neben Ihrem Entwurf für weitere Emojis geöffnet." },
+    "options.insertion": { "message": "Emojis einfügen" },
+    "options.characterHelp": { "message": "Verwendet den Emoji-Stil Ihres Geräts statt JoyPixels-Grafiken. Halten Sie beim Einfügen die Umschalttaste gedrückt, um für ein Emoji zu wechseln." },
+    "options.savedAutomatically": { "message": "Änderungen werden automatisch gespeichert." },
+    "options.displayMode": { "message": "Emoji-Auswahl" },
+    "options.popup": { "message": "Dropdown in der Symbolleiste" },
+    "options.window": { "message": "Separates Fenster" },
     "options.insertCharDesc": {
-        "message": "Standardmäßig immer Zeichen statt Grafik einfügen"
+        "message": "Emojis standardmäßig als Zeichen einfügen"
     }
 }

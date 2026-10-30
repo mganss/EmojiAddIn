@@ -51,3 +51,8 @@ a:hover {
     cursor: pointer;
 }
 #search-clear[hidden] { display: none; }
+
+html.picker-window, .picker-window body { height: 100%; }
+.picker-window body { width: auto; margin: 0; }
+.picker-window #content-main { height: 100%; box-sizing: border-box; display: flex; flex-direction: column; }
+.picker-window #galleries { max-height: none; flex: 1; min-height: 0; }
