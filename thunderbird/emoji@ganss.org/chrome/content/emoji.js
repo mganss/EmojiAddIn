@@ -1,7 +1,7 @@
 $(function () {
     // The compose window blocks remote content by default, so the image is embedded as a data URL.
     async function createEmojiHtml(unicode, emoji) {
-        let src = 'https://cdn.jsdelivr.net/gh/joypixels/emoji-assets@v7.0.0/png/64/' + unicode + '.png';
+        let src = 'https://cdn.jsdelivr.net/gh/joypixels/emoji-assets@v11.0.0/png/64/' + unicode + '.png';
         try {
             let response = await fetch(src);
             if (!response.ok) throw new Error(response.statusText);
