@@ -6,13 +6,14 @@
   "scripts": {},
   "devDependencies": {
     "chalk": "^2.4.2",
-    "gulp": "^4.0.2",
-    "gulp-autoprefixer": "^6.1.0",
+    "browser-sync": "^3.0.4",
+    "gulp": "^5.0.1",
+    "gulp-autoprefixer": "^10.0.0",
     "gulp-flatten": "^0.4.0",
-    "gulp-sass": "^4.0.2",
-    "gulp-sourcemaps": "^2.6.5",
-    "gulp-webserver": ">=0.9.1",
-    "gulp-zip": "^4.2.0"
+    "gulp-sass": "^6.0.1",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-zip": "^6.1.0",
+    "sass": "^1.93.0"
   },
   "dependencies": {}
 }

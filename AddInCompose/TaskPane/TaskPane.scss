@@ -1,4 +1,6 @@
-﻿body, input {
+@use "sass:list";
+
+body, input {
     font-family: sans-serif;
     background-color: white;
 }
@@ -45,7 +47,7 @@ a {
         $tones: #ffcf11, #fae3c3, #fed0ac, #dba373, #a88054, #5f4e43;
         @for $i from 0 through 5 {
             &.tone-#{$i} {
-                background-color: nth($tones, $i + 1);
+                background-color: list.nth($tones, $i + 1);
             }
         }
 

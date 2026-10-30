@@ -1,35 +1,38 @@
 'use script';
 
 var gulp = require('gulp');
-var webserver = require('gulp-webserver');
-var sass = require('gulp-sass');
+var sass = require('gulp-sass')(require('sass'));
 var sourcemaps = require('gulp-sourcemaps');
-var autoprefixer = require('gulp-autoprefixer');
 var flatten = require('gulp-flatten');
-var zip = require('gulp-zip');
+var browserSync = require('browser-sync').create();
 
-gulp.task('serve-static', function () {
-    gulp.src('.')
-        .pipe(webserver({
-            https: true,
-            port: '8443',
-            host: 'localhost',
-            directoryListing: true,
-            fallback: 'index.html'
-        }));
+gulp.task('serve-static', function (done) {
+    browserSync.init({
+        https: true,
+        port: 8443,
+        host: 'localhost',
+        open: false,
+        online: false,
+        server: {
+            baseDir: '.',
+            directory: true
+        }
+    }, done);
 });
 
 var input = 'AddInCompose/**/*.scss';
 var output = 'AddInCompose';
 var sassOptions = {
     errLogToConsole: true,
-    outputStyle: 'expanded'
+    style: 'expanded'
 };
 
 var copyInput = 'AddInCompose/TaskPane/TaskPane.js';
 var copyOutputFolder = 'thunderbird/emoji@ganss.org/chrome/content';
 
-gulp.task('sass', function () {
+gulp.task('sass', async function () {
+    var autoprefixer = (await import('gulp-autoprefixer')).default;
+
     return gulp
         .src(input)
         .pipe(sourcemaps.init())
@@ -66,15 +69,19 @@ gulp.task('watch', gulp.parallel('watch-sass', 'watch-copy'));
 
 gulp.task('default', gulp.series('sass', 'watch' /*, possible other tasks... */));
 
-gulp.task('prod', gulp.series('sass', 'copyfiles', function () {
+gulp.task('prod', gulp.series('sass', 'copyfiles', async function () {
+    var autoprefixer = (await import('gulp-autoprefixer')).default;
+
     return gulp
         .src(input)
-        .pipe(sass({ outputStyle: 'compressed' }))
+        .pipe(sass({ style: 'compressed' }))
         .pipe(autoprefixer())
         .pipe(gulp.dest(output));
 }));
 
-gulp.task('dist', gulp.series('prod', function () {
+gulp.task('dist', gulp.series('prod', async function () {
+    var zip = (await import('gulp-zip')).default;
+
     return gulp.src('thunderbird/emoji@ganss.org/**/*')
         .pipe(zip('emoji.xpi'))
         .pipe(gulp.dest('.'));
